@@ -25,7 +25,7 @@ The pet returns to its original cute appearance, and the game restarts from the 
 
 The cleanup process enters an endless cycle.
 
-### Ending B — The Truth
+### Ending B — The Truth (True Ending)
 
 The player chooses to preserve the evidence and successfully terminates the pet.
 
