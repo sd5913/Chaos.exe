@@ -47,3 +47,31 @@ The game explores memory, identity, and personal responsibility.
 The pet was never the real monster. The player was the one who created it.
 
 What begins as a simple desktop cleanup game gradually becomes a psychological horror experience about escaping or confronting one's past.
+
+## 5. Core Gameplay Design
+
+### 5.1 Virtual Pet Guidance
+
+The virtual pet gradually guides the player through daily gentle reminders and repeated instructions, encouraging them to accept the act of deleting files and avoiding their past.
+
+In the early stages, the pet appears friendly and helpful, assisting the player with simple cleanup tasks. As the game progresses, it begins encouraging the player to delete increasingly important files, including personal records and evidence related to the protagonist's past.
+
+### 5.2 File Inspection and Cleanup
+
+To prevent players from deleting files without checking their contents, the game introduces a file inspection system. Players must open and read each file before deciding whether to feed it to the virtual pet.
+
+During the tutorial, the pet can remind players to inspect files first to avoid feeding it infected files and making it "sick". This helps players become familiar with the file preview system while also making file contents an important part of the storytelling.
+
+### 5.3 Daily Memory Limits
+
+Each day or level has a specific memory limit. Players must delete a certain number of files to complete the cleanup tasks.
+
+As the game progresses, memory pressure gradually increases, requiring players to delete more files. For example:
+
+Level 1: Delete 2–3 ordinary files to learn the basic gameplay mechanics.
+
+Levels 2–3: Increase the number of files that need to be cleaned up, gradually creating more pressure.
+
+Later Levels: Memory usage approaches its limit, and important files related to the protagonist's past begin to appear. Players must continue completing cleanup tasks while gradually uncovering the truth behind the story.
+
+The exact memory limits and number of files will be adjusted during further development and testing.
