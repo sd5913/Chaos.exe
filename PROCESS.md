@@ -8,7 +8,7 @@ As the concept developed, we decided to introduce a psychological horror narrati
 ## 2. Story Concept
 The game takes place in a fictional computer belonging to the protagonist. At first, players complete simple cleanup tasks with the help of a cute and friendly virtual pet.
 
-As the game progresses, suspicious files, photographs, and personal records begin to reveal the protagonist's involvement in a digital crime, involving the misuse of another person's personal information.
+As the game progresses, suspicious files, photographs, and personal records begin to reveal the protagonist's involvement in a digital crime, involving the theft, misuse, and sale of other people's personal information.
 
 The pet gradually becomes more demanding, encouraging players to delete increasingly important files. Players initially believe the pet is becoming dangerous, but eventually discover that it has been following instructions configured by the protagonist.
 
