@@ -31,7 +31,7 @@ The player chooses to preserve the evidence and successfully terminates the pet.
 
 Before disappearing, the pet returns to its original appearance and says:
 
-### "I only did what you asked."
+#### "I only did what you asked."
 
 The player then discovers a hidden configuration file, revealing that all the deletion instructions were originally set by the protagonist.
 
