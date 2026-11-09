@@ -1,10 +1,10 @@
 # CLEANME.md
 <img width="736" height="449" alt="image" src="https://github.com/user-attachments/assets/93d60f4d-d30b-4855-82be-c673d8e6be07" />
+
 A retro desktop cleanup game with a psychological horror narrative.
 
 ## About the Game
-#### CLEANME.md 
-is a desktop simulation and psychological horror game in which players take the role of a user who has lost their memories.
+#### CLEANME.md### is a desktop simulation and psychological horror game in which players take the role of a user who has lost their memories.
 
 The game takes place in a fictional computer desktop. Players open folders, inspect files, and decide whether to keep or delete them. Each day, new files appear, and players must manage the computer's storage to complete daily cleanup targets.
 
