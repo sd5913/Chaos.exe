@@ -85,6 +85,3 @@ The team is working on the core interaction loop, file system design, narrative 
 
 More details will be added as the project develops.
 
-## Credits
-
-Developed as a collaborative game project.
