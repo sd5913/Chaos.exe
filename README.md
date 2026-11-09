@@ -4,7 +4,7 @@
 A retro desktop cleanup game with a psychological horror narrative.
 
 ## About the Game
-***CLEANME.md*** is a desktop simulation and psychological horror game in which players take the role of a user who has lost their memories.
+**CLEANME.md** is a desktop simulation and psychological horror game in which players take the role of a user who has lost their memories.
 
 The game takes place in a fictional computer desktop. Players open folders, inspect files, and decide whether to keep or delete them. Each day, new files appear, and players must manage the computer's storage to complete daily cleanup targets.
 
@@ -31,15 +31,9 @@ The player is free to make their own decisions, but the cleanup requirements gra
 
 The protagonist begins the game with no clear memory of their past.
 
-As the player explores the desktop, they discover personal information belonging to unfamiliar people, records of suspicious requests, and evidence of data transactions.
+As the player explores the desktop, they discover personal information that is not from themselves.
 
-These files gradually reveal that the protagonist was involved in the illegal collection and sale of personal information. Although the protagonist eventually wanted to stop, they attempted to erase the evidence and their associated memories instead of confronting their past.
-
-Milo, the desktop assistant, was created by the protagonist. Its behaviour is based on the preferences and instructions previously configured by its user.
-
-The central question of the game is:
-
-If you could erase your past, would you choose to do so?
+The central question of the game is: **If you could erase your past, would you choose to do so?**
 
 ## Game Structure
 
