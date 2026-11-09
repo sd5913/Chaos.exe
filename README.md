@@ -31,7 +31,7 @@ The player is free to make their own decisions, but the cleanup requirements gra
 
 The protagonist begins the game with no clear memory of their past.
 
-As the player explores the desktop, they discover personal information that is not from themselves.
+As the player explores the desktop, they discover personal information that does not belong to them.
 
 The central question of the game is: **If you could erase your past, would you choose to do so?**
 
@@ -46,11 +46,7 @@ The current design consists of a seven-day progression.
 | Day 5–6 | Gradually expose the protagonist's role in the case |
 | Day 7 | Present the final decision and determine the ending |
 
-The game includes two main endings:
-
-#### BE — Clean Slate: The player deletes the final important file, leading to the protagonist's continued memory loss.
-
-#### TE — A Real Fresh Start: The player preserves the final file, restores their memories, and chooses to face the past.
+The game includes two main endings: **TE(true end)** and **BE(bad end)**
 
 The endings are determined by the player's final decision. Memory fragments provide context and help the player understand the meaning of that decision.
 
