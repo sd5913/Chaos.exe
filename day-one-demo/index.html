@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLEAN.exe — Day 01</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="desktop" id="desktop">
+    <div class="desktop-grain" aria-hidden="true"></div>
+    <div class="desktop-label"><span>PERSONAL COMPUTER</span><b>DAY 01 <i>•</i> 09:14 AM</b></div>
+
+    <div class="desktop-icons">
+      <button class="desktop-icon" id="open-folder" aria-label="打开 My Files 文件夹"><span class="folder-icon">📁</span><span>My Files</span><small>双击打开</small></button>
+      <button class="desktop-icon" id="open-goal"><span class="drive-icon">▣</span><span>My Computer</span><small>清理目标</small></button>
+    </div>
+
+    <div class="desktop-intro" id="desktop-intro"><span>✳ &nbsp; A NEW DAY, A CLEAN SPACE</span><h2>给回忆一点空间。</h2><p>双击左侧的 My Files 文件夹，和 Milo 一起开始今天的整理。</p><button class="button primary" id="intro-open">打开 My Files &nbsp; ↗</button></div>
+    <section class="window files-window" id="files-window" aria-label="My Files 文件夹" hidden>
+      <div class="window-title"><span><span class="tiny-icon">▣</span> My Files</span><div><button class="window-control" id="minimize-folder" aria-label="最小化文件夹">—</button><button class="window-control" id="close-folder" aria-label="关闭文件夹">×</button></div></div>
+      <div class="menu-bar"><span>File</span><span>Edit</span><span>View</span><span>Help</span><span class="menu-day">DAY 01</span></div>
+      <div class="address-bar"><span>Address</span><div>▣ &nbsp; C:\\Users\\Documents\\My Files</div><b>↵</b></div>
+      <div class="window-body">
+        <aside class="folder-side"><div class="folder-mark">▰</div><p class="side-title">YOUR SPACE</p><h2>一切，从<br>整理开始。</h2><p>打开一个文件，看看里面是什么，再决定要不要喂给 Milo。</p><div class="side-note"><span>✳</span> 这是虚拟桌面，所有文件均为游戏内容。</div></aside>
+        <div class="file-area"><div class="area-header"><div><span class="eyebrow">YOUR DOCUMENTS / 01</span><h1>My Files<span class="blink">_</span></h1><p>双击文件查看内容，然后做出选择。</p></div><div class="view-control">▤ &nbsp; LIST VIEW</div></div>
+          <div class="table-head"><span>NAME</span><span>TYPE</span><span>SIZE</span><span>STATUS</span></div>
+          <div id="file-list" class="file-list" aria-live="polite"></div>
+          <div class="area-footer"><span id="file-count">0 ITEMS</span><span>⊹ &nbsp; SELECT A FILE TO BEGIN</span></div>
+        </div>
+      </div>
+      <div class="window-bottom"><span>▣ &nbsp; 我的文件</span><span>虚拟桌面 / 仅供游戏演示</span></div>
+    </section>
+
+    <section class="pet-panel" id="pet-target" aria-label="Milo 桌宠，文件拖放区域">
+      <div class="pet-panel-title"><span>YOUR COMPANION</span><span>● ONLINE</span></div>
+      <div class="pet-stage"><div class="pet-halo"></div><div id="milo" class="milo idle" role="img" aria-label="梨形桌宠 Milo"></div><div class="pet-shadow"></div><div class="drop-hint">↓ 放在这里喂给 Milo</div></div>
+      <div class="pet-name"><div><small>DESKTOP PET / 001</small><h2>Milo<span>✳</span></h2></div><span class="pet-badge">READY TO HELP</span></div>
+      <div class="pet-speech"><span class="speech-label">MILO SAYS</span><p id="speech" aria-live="polite">嗨！我是 Milo。今天我们一起把电脑整理干净吧。</p></div>
+      <p class="pet-tip">把准备删除的文件拖到我这里 <span>↗</span></p>
+    </section>
+
+    <section class="goal-card" id="goal-card" aria-label="清理进度"><div><span>DAY 01 / CLEANUP GOAL</span><b id="goal-percentage">0%</b></div><div class="progress-track"><div id="progress-bar"></div></div><div class="goal-bottom"><span>释放 <strong id="released">0</strong> / 30 MB</span><span id="remaining">还需 30 MB</span></div></section>
+
+    <div class="taskbar"><button class="start-button" id="start-button"><b>✳</b> START</button><div class="task-divider"></div><button class="task-active" id="task-files">▰ &nbsp; My Files</button><div class="task-spacer"></div><span class="task-hint">CLEAN.exe — FIRST PLAYABLE DEMO</span><span class="clock">● &nbsp; 09:14</span></div>
+
+    <div class="dialog-backdrop" id="dialog-backdrop" hidden><section class="window dialog-window" role="dialog" aria-modal="true" aria-labelledby="dialog-title"><div class="window-title"><span><span class="tiny-icon">▤</span> File Viewer</span><button class="window-control" id="dialog-close" aria-label="关闭文件">×</button></div><div class="dialog-content"><div class="dialog-eyebrow">FILE PREVIEW / <span id="dialog-type"></span></div><h2 id="dialog-title"></h2><div class="file-meta" id="dialog-meta"></div><div class="file-preview" id="dialog-text"></div><p class="dialog-question">这个文件要怎么处理？</p><div class="dialog-actions"><button class="button secondary" id="keep-file">保留文件</button><button class="button primary" id="prepare-file">准备删除 <span>↗</span></button></div><p class="dialog-footnote">选择“准备删除”后，拖动文件给 Milo；也可以用按钮喂给它。</p></div></section></div>
+
+    <div class="dialog-backdrop complete-backdrop" id="complete-backdrop" hidden><section class="window complete-window" role="dialog" aria-modal="true" aria-labelledby="complete-title"><div class="window-title"><span>✳ &nbsp; CLEAN.exe</span><span class="complete-check">✓</span></div><div class="complete-content"><span class="eyebrow">DAY 01 / COMPLETE</span><h2 id="complete-title">做得好。<br><em>今天干净多了。</em></h2><p id="complete-copy">你和 Milo 一起完成了第一次清理。</p><div class="complete-stats"><div><small>SPACE FREED</small><b id="complete-space">0 MB</b></div><div><small>FILES KEPT</small><b id="complete-kept">0</b></div></div><p class="ending-line">“有些文件留着，也许是有原因的。”</p><button class="button primary" id="restart">再玩一次 ↻</button></div></section></div>
+    <div class="toast" id="toast" aria-live="polite"></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
