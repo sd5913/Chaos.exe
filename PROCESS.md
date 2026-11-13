@@ -235,3 +235,13 @@ CONFIGURED_BY: USER
 | Day 7 | Final confrontation with the user's own settings | Reframe Milo as the executor of the protagonist's past choices. |
 
 The central interaction between gameplay and narrative is that deleting files both frees storage and destroys information. The player learns the truth by inspecting the same files the system pressures them to erase.
+
+## 9. UI and Audio Development
+
+The original UI, Pixel Pop OS, features a playful color palette dominated by cream yellow (40%), light blue (25%), and bright yellow (20%), with additional accent colors.
+
+Starting from Day 5, the interface gradually shifts to a muted, less saturated color palette while retaining its original visual identity. This subtle change reflects the growing psychological horror atmosphere without compromising readability or usability.
+
+Two background music tracks were implemented: Normal BGM for Days 1–4 and Horror BGM for Days 5–7, with a crossfade transition between them. Additional UI click sound effects provide audio feedback for player interactions.
+
+CSS theme switching and JavaScript audio controls synchronize the visual and audio progression with the game's narrative.
