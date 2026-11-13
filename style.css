@@ -1,0 +1,1785 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
+
+/* =========================================
+   CLEAN.exe — PIXEL POP OS
+   Sky Blue × Butter Yellow × Ivory
+========================================= */
+
+:root {
+  --sky-blue: #A9C9E8;
+  --sky-light: #D8E9F6;
+  --pixel-blue: #688BC5;
+  --deep-blue: #3157A4;
+  --blue-dark: #243F7B;
+
+  --ivory: #FFF7DF;
+  --cream: #FFFCF1;
+  --warm-beige: #F1EAD8;
+  --pixel-gray: #D6D1C2;
+
+  --milo-yellow: #F5D46D;
+  --yellow-light: #FCEBA8;
+  --yellow-dark: #D4AB3E;
+
+  --candy-pink: #F2B4B5;
+  --mint-green: #B8D9C0;
+  --lavender: #C8B9E6;
+
+  --error-red: #D96868;
+  --pixel-ink: #55566A;
+  --muted: #85869A;
+
+  --border-light: #FFFFFF;
+  --border-mid: #C5C5B8;
+  --border-dark: #898A91;
+
+  font-family: 'DM Sans', 'Noto Sans SC', sans-serif;
+  color: var(--pixel-ink);
+  background: var(--sky-blue);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* =========================================
+   DESKTOP
+========================================= */
+
+.desktop {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--sky-blue);
+  background-image:
+    radial-gradient(
+      circle at 78% 18%,
+      #FFFFFF66 0 2px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 15% 70%,
+      #FFFFFF55 0 2px,
+      transparent 3px
+    ),
+    linear-gradient(
+      145deg,
+      #BBD8EE 0%,
+      #A9C9E8 48%,
+      #8EB8DC 100%
+    );
+}
+
+.desktop-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .08;
+  background-image:
+    radial-gradient(#FFFFFF 1px, transparent 1px);
+  background-size: 5px 5px;
+  z-index: -1;
+}
+
+.desktop-label {
+  position: absolute;
+  top: 22px;
+  left: 35px;
+  right: 35px;
+  display: flex;
+  justify-content: space-between;
+  color: #3157A4;
+  font: 10px 'DM Mono', monospace;
+  letter-spacing: .13em;
+  text-shadow: 0 1px #FFFFFF80;
+}
+
+.desktop-label b {
+  font-weight: 500;
+}
+
+.desktop-label i {
+  font-style: normal;
+  color: #E1A92D;
+  margin: 0 7px;
+}
+
+/* =========================================
+   DESKTOP ICONS
+========================================= */
+
+.desktop-icons {
+  position: absolute;
+  top: 90px;
+  left: 27px;
+  display: grid;
+  gap: 24px;
+  z-index: 1;
+}
+
+.desktop-icon {
+  width: 85px;
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  border: 1px solid transparent;
+  padding: 7px 3px;
+  background: transparent;
+  color: #24477E;
+  font-size: 12px;
+  text-shadow: 0 1px #FFFFFF;
+}
+
+.desktop-icon:hover,
+.desktop-icon:focus {
+  background: #FFFFFF55;
+  border: 1px dotted #3157A4;
+  outline: none;
+}
+
+.desktop-icon > span:first-child {
+  font-size: 35px;
+  line-height: 1;
+  filter: drop-shadow(1px 2px 0 #6B88A855);
+}
+
+.desktop-icon small {
+  font-size: 9px;
+  color: #486E9B;
+}
+
+.drive-icon {
+  width: 43px;
+  height: 36px;
+  border: 2px solid #FFFFFF;
+  outline: 1px solid #688BC5;
+  background: linear-gradient(#F9F1D4, #E4D7A7);
+  color: #3157A4;
+  box-shadow: inset 0 -6px #D6C58B;
+  line-height: 30px !important;
+}
+
+/* =========================================
+   INTRO
+========================================= */
+
+.desktop-intro {
+  position: absolute;
+  left: 19%;
+  top: 30%;
+  max-width: 430px;
+  color: var(--deep-blue);
+}
+
+.desktop-intro > span {
+  font: 10px 'DM Mono', monospace;
+  letter-spacing: .14em;
+  color: #3157A4;
+}
+
+.desktop-intro h2 {
+  margin: 17px 0 12px;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  color: #3157A4;
+}
+
+.desktop-intro p {
+  max-width: 390px;
+  font-size: 13px;
+  line-height: 1.9;
+  color: #3F628E;
+}
+
+.desktop-intro button {
+  margin-top: 12px;
+}
+
+.desktop-intro.hidden-intro {
+  display: none;
+}
+
+/* =========================================
+   WINDOW BASE
+========================================= */
+
+.window {
+  background: var(--ivory);
+  border: 1px solid var(--deep-blue);
+  box-shadow:
+    2px 2px 0 #FFFFFF,
+    4px 4px 0 #3157A455,
+    8px 10px 0 #3157A422,
+    0 18px 45px #34577B30;
+}
+
+.window-title {
+  height: 32px;
+  padding: 0 5px 0 9px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(
+    90deg,
+    #3157A4,
+    #527FC0
+  );
+  color: white;
+  font: 500 12px 'DM Sans', sans-serif;
+  letter-spacing: .02em;
+}
+
+.tiny-icon {
+  margin-right: 6px;
+  color: var(--milo-yellow);
+}
+
+.window-title > div {
+  display: flex;
+  gap: 3px;
+}
+
+.window-control {
+  width: 23px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid;
+  border-color: #FFFFFF #3157A4 #3157A4 #FFFFFF;
+  background: #E8E7DB;
+  color: #253F70;
+  font: bold 13px Arial, sans-serif;
+  line-height: 17px;
+  box-shadow: inset 1px 1px #FFFFFF;
+}
+
+.window-control:hover {
+  background: var(--milo-yellow);
+}
+
+.window-control:active {
+  border-color: #777777 #FFFFFF #FFFFFF #777777;
+  box-shadow: inset 1px 1px #AAA;
+}
+
+/* =========================================
+   FILE MANAGER WINDOW
+========================================= */
+
+.files-window {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  width: min(65%, 930px);
+  min-height: 560px;
+  z-index: 3;
+  border: 2px solid;
+  border-color: #FFFFFF #7187A8 #7187A8 #FFFFFF;
+  background: var(--cream);
+}
+
+.files-window .window-title {
+  height: 33px;
+}
+
+.menu-bar {
+  height: 29px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 12px;
+  background: #FFFDF5;
+  border-bottom: 1px solid #D6D2C4;
+  color: #454D62;
+  font-size: 11px;
+}
+
+.menu-bar span {
+  cursor: pointer;
+}
+
+.menu-bar span:first-letter {
+  text-decoration: underline;
+}
+
+.menu-bar span:hover {
+  color: var(--deep-blue);
+}
+
+.menu-day {
+  margin-left: auto;
+  color: var(--pixel-blue);
+  font: 10px 'DM Mono', monospace;
+}
+
+.address-bar {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 10px;
+  background: #E9EFF8;
+  border-bottom: 1px solid #B9C8DB;
+  color: #536A8C;
+  font: 10px 'DM Mono', monospace;
+}
+
+.address-bar div {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 7px 9px;
+  background: white;
+  border: 1px inset #AEB8C6;
+  color: #45536C;
+}
+
+.address-bar b {
+  color: var(--deep-blue);
+  font-size: 15px;
+}
+
+/* File manager body */
+
+.window-body {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  min-height: 405px;
+}
+
+.folder-side {
+  padding: 25px 17px;
+  background: #E6F0FA;
+  border-right: 1px solid #B9CDE3;
+  color: #526B8E;
+}
+
+.folder-mark {
+  font-size: 27px;
+  color: var(--pixel-blue);
+}
+
+.side-title,
+.eyebrow {
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .13em;
+  color: #688BC5;
+}
+
+.side-title {
+  margin-top: 12px;
+}
+
+.folder-side h2 {
+  margin: 14px 0;
+  font-size: 21px;
+  line-height: 1.45;
+  color: var(--deep-blue);
+}
+
+.folder-side > p:not(.side-title) {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #627A99;
+}
+
+.side-note {
+  margin-top: 32px;
+  padding-top: 13px;
+  border-top: 1px solid #C3D6E8;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #6E85A1;
+}
+
+.side-note span {
+  display: block;
+  color: #E2B53D;
+  font-size: 17px;
+}
+
+/* File area */
+
+.file-area {
+  min-width: 0;
+  padding: 25px 23px 0;
+  background: var(--cream);
+}
+
+.area-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 23px;
+}
+
+.area-header h1 {
+  margin: 7px 0 4px;
+  color: var(--deep-blue);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+}
+
+.area-header p {
+  margin: 0;
+  color: #9295A2;
+  font-size: 11px;
+}
+
+.blink {
+  color: #E2B53D;
+}
+
+.view-control {
+  color: #7189AC;
+  font: 9px 'DM Mono', monospace;
+}
+
+/* File list */
+
+.table-head,
+.file-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) 65px 60px 75px;
+  align-items: center;
+  gap: 7px;
+}
+
+.table-head {
+  padding: 0 8px 10px;
+  border-bottom: 2px solid #B6CBE2;
+  color: #7187A5;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .08em;
+}
+
+.file-row {
+  min-height: 47px;
+  padding: 0 8px;
+  border-bottom: 1px solid #E6E4D9;
+  color: #656A7B;
+  font-size: 11px;
+  user-select: none;
+  cursor: default;
+}
+
+.file-row:nth-child(even) {
+  background: #FAF7EA;
+}
+
+.file-row:hover,
+.file-row:focus {
+  background: #E4EFFB;
+  outline: 1px dotted var(--deep-blue);
+  outline-offset: -2px;
+}
+
+.file-row.ready {
+  background: #FFF0B9;
+}
+
+.file-main {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.file-symbol {
+  color: var(--pixel-blue);
+  font-size: 19px;
+}
+
+.file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #455B80;
+  font-weight: 600;
+}
+
+.file-type,
+.file-size {
+  color: #9293A0;
+  font: 10px 'DM Mono', monospace;
+}
+
+.file-state {
+  color: #9293A0;
+  font-size: 10px;
+}
+
+.file-state.queued {
+  color: #A07819;
+  font-weight: 700;
+}
+
+.file-state.saved {
+  color: #649176;
+}
+
+.area-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 8px;
+  color: #9299A8;
+  font: 9px 'DM Mono', monospace;
+}
+
+.window-bottom {
+  height: 29px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #EAF0F7;
+  border-top: 1px solid #C2D0E0;
+  color: #657B9A;
+  font-size: 10px;
+}
+
+/* =========================================
+   MILO COMPANION WINDOW
+========================================= */
+
+.pet-panel {
+  position: absolute;
+  top: 11%;
+  right: 4%;
+  width: 255px;
+  padding: 12px;
+  background: var(--ivory);
+  border: 2px solid;
+  border-color: white #7187A8 #7187A8 white;
+  box-shadow:
+    2px 2px 0 #3157A455,
+    7px 9px 0 #3157A422;
+  z-index: 2;
+}
+
+.pet-panel-title {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 5px;
+  border-bottom: 1px solid #E4DCC8;
+  color: #6881A5;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .08em;
+}
+
+.pet-panel-title span:last-child {
+  color: #6DAD86;
+}
+
+/* Milo stage */
+
+.pet-stage {
+  position: relative;
+  height: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle,
+      #F9E7A5 0%,
+      #FFF4CE 50%,
+      #FFF7DF 75%
+    );
+  border: 1px solid #E9DDAE;
+  margin-top: 8px;
+}
+
+.pet-halo {
+  position: absolute;
+  width: 155px;
+  height: 155px;
+  border-radius: 50%;
+  background: #F5D46D55;
+}
+
+.milo {
+  position: relative;
+  z-index: 2;
+  width: 200px;
+  height: 200px;
+  background-image: url('milo-reference.png');
+  background-size: 600px 400px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  mix-blend-mode: multiply;
+  image-rendering: pixelated;
+}
+
+.milo.idle {
+  background-position: 0 0;
+}
+
+.milo.read {
+  background-position: 100% 0;
+}
+
+.milo.eat {
+  background-position: 100% 100%;
+  animation: chomp .42s ease-in-out infinite alternate;
+}
+
+.milo.happy {
+  background-position: 50% 100%;
+  animation: bounce .5s ease-in-out 3 alternate;
+}
+
+.pet-shadow {
+  display: none;
+}
+
+.drop-hint {
+  position: absolute;
+  bottom: 7px;
+  z-index: 3;
+  padding: 7px 10px;
+  background: var(--deep-blue);
+  color: white;
+  font-size: 10px;
+  opacity: 0;
+  border: 1px dashed white;
+}
+
+.pet-panel.drag-over {
+  outline: 3px dashed var(--milo-yellow);
+  outline-offset: 4px;
+}
+
+.pet-panel.drag-over .drop-hint {
+  opacity: 1;
+}
+
+/* Milo information */
+
+.pet-name {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding: 12px 3px;
+  border-bottom: 1px solid #E4DCC8;
+}
+
+.pet-name small,
+.speech-label {
+  color: #9694A1;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .1em;
+}
+
+.pet-name h2 {
+  margin: 5px 0 0;
+  color: var(--deep-blue);
+  font-size: 29px;
+  font-weight: 700;
+}
+
+.pet-name h2 span {
+  margin-left: 5px;
+  color: #E4B93C;
+  font-size: 14px;
+}
+
+.pet-badge {
+  padding: 4px 6px;
+  background: #E5F0E3;
+  color: #659077;
+  font: 8px 'DM Mono', monospace;
+}
+
+.pet-speech {
+  min-height: 78px;
+  margin-top: 10px;
+  padding: 11px;
+  background: #EAF1FA;
+  border: 1px solid #D0DDEB;
+}
+
+.pet-speech p {
+  margin: 7px 0 0;
+  color: #506889;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.pet-tip {
+  margin: 10px 2px 2px;
+  color: #9196A4;
+  font-size: 10px;
+}
+
+.pet-tip span {
+  float: right;
+  color: var(--pixel-blue);
+}
+
+/* =========================================
+   GOAL / PROGRESS
+========================================= */
+
+.goal-card {
+  position: absolute;
+  right: 4%;
+  top: calc(11% + 450px);
+  width: 255px;
+  padding: 13px;
+  background: #FFF2BF;
+  border: 2px solid;
+  border-color: white #C5A94D #C5A94D white;
+  box-shadow: 4px 5px 0 #3157A422;
+}
+
+.goal-card > div:first-child,
+.goal-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.goal-card > div:first-child span {
+  color: #9B843E;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .07em;
+}
+
+.goal-card b {
+  color: #3157A4;
+  font: 500 17px 'DM Mono', monospace;
+}
+
+.progress-track {
+  height: 13px;
+  margin: 13px 0 10px;
+  padding: 2px;
+  background: #FFFDF4;
+  border: 1px inset #C5AE67;
+}
+
+.progress-track div {
+  height: 100%;
+  width: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    #688BC5 0 9px,
+    #82A7D8 9px 11px
+  );
+  transition: width .5s;
+}
+
+.goal-bottom {
+  color: #8E7B4C;
+  font-size: 10px;
+}
+
+/* =========================================
+   TASKBAR
+========================================= */
+
+.taskbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 43px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 7px;
+  background: #E9E7D9;
+  border-top: 2px solid white;
+  box-shadow: 0 -2px 5px #3157A415;
+  color: #4D6080;
+  z-index: 10;
+}
+
+.start-button,
+.task-active {
+  height: 32px;
+  padding: 0 12px;
+  background: #FDF8E8;
+  border: 2px solid;
+  border-color: white #9295A0 #9295A0 white;
+  color: #3157A4;
+  font: 600 10px 'DM Mono', monospace;
+  box-shadow: inset 1px 1px white;
+}
+
+.start-button {
+  font-weight: 700;
+}
+
+.start-button b {
+  margin-right: 5px;
+  color: #D7A92E;
+  font-size: 15px;
+}
+
+.start-button:active,
+.task-active {
+  border-color: #9295A0 white white #9295A0;
+  box-shadow: inset 1px 1px #C0BBAA;
+}
+
+.task-divider {
+  height: 26px;
+  border-left: 1px solid #AAA99F;
+  border-right: 1px solid white;
+}
+
+.task-active {
+  min-width: 145px;
+  text-align: left;
+  background: #DDE9F6;
+}
+
+.task-spacer {
+  flex: 1;
+}
+
+.task-hint,
+.clock {
+  color: #7C8493;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .05em;
+}
+
+.clock {
+  padding: 7px 9px;
+  background: #F8F4E7;
+  border: 1px inset #C0BBAA;
+  color: #3157A4;
+}
+
+/* =========================================
+   FILE PREVIEW DIALOG
+========================================= */
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background: #253D6877;
+  backdrop-filter: blur(2px);
+}
+
+.dialog-window {
+  width: min(490px, 100%);
+  border: 2px solid;
+  border-color: white #7187A8 #7187A8 white;
+  box-shadow: 5px 7px 0 #1E3B6655;
+}
+
+.dialog-content {
+  padding: 23px 25px 20px;
+  background: var(--ivory);
+}
+
+.dialog-eyebrow {
+  color: #688BC5;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .13em;
+}
+
+.dialog-content h2 {
+  margin: 11px 0;
+  color: var(--deep-blue);
+  font-size: 22px;
+  overflow-wrap: anywhere;
+}
+
+.file-meta {
+  color: #9093A0;
+  font: 10px 'DM Mono', monospace;
+}
+
+.file-preview {
+  min-height: 110px;
+  margin: 17px 0;
+  padding: 17px;
+  background: white;
+  border: 1px inset #B7B8B3;
+  color: #555D71;
+  font-size: 12px;
+  line-height: 1.9;
+  white-space: pre-line;
+}
+
+.dialog-question {
+  margin: 13px 0;
+  color: #5B6F8F;
+  font-size: 12px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.button {
+  min-height: 34px;
+  padding: 8px 15px;
+  border: 2px solid;
+  border-color: white #8E94A3 #8E94A3 white;
+  background: #FDF8E8;
+  color: #485A79;
+  font-size: 11px;
+  box-shadow: inset 1px 1px white;
+}
+
+.button:active {
+  border-color: #8E94A3 white white #8E94A3;
+  box-shadow: inset 1px 1px #C8C4B7;
+}
+
+.button.primary {
+  background: var(--milo-yellow);
+  color: #3157A4;
+  font-weight: 700;
+}
+
+.button.primary:hover {
+  background: #FBE69A;
+}
+
+.button.secondary {
+  background: #DCE9F6;
+  color: #3157A4;
+}
+
+.dialog-footnote {
+  margin: 13px 0 0;
+  color: #9998A0;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   COMPLETE DIALOG
+========================================= */
+
+.complete-window {
+  width: min(460px, 100%);
+}
+
+.complete-content {
+  padding: 28px;
+  background: var(--ivory);
+}
+
+.complete-content h2 {
+  margin: 13px 0;
+  color: var(--deep-blue);
+  font-size: 29px;
+  line-height: 1.45;
+}
+
+.complete-content h2 em {
+  color: #D4A936;
+  font-style: normal;
+}
+
+.complete-content > p {
+  color: #73798C;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.complete-check {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  background: var(--milo-yellow);
+  color: var(--deep-blue);
+  font-weight: 700;
+}
+
+.complete-stats {
+  display: flex;
+  gap: 50px;
+  padding: 17px 0;
+  border-top: 1px solid #DAD8CC;
+  border-bottom: 1px solid #DAD8CC;
+}
+
+.complete-stats div {
+  display: grid;
+  gap: 7px;
+}
+
+.complete-stats small {
+  color: #9695A0;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .1em;
+}
+
+.complete-stats b {
+  color: var(--deep-blue);
+  font: 500 22px 'DM Mono', monospace;
+}
+
+.complete-content .ending-line {
+  margin: 18px 0;
+  padding: 10px;
+  background: #FFF0BE;
+  color: #947C3B;
+  font-style: italic;
+}
+
+/* =========================================
+   TOAST
+========================================= */
+
+.toast {
+  position: fixed;
+  bottom: 58px;
+  left: 50%;
+  z-index: 25;
+  transform: translateX(-50%);
+  max-width: calc(100vw - 30px);
+  padding: 11px 17px;
+  background: #3157A4;
+  border: 1px solid white;
+  box-shadow: 3px 4px 0 #1C3A6A55;
+  color: white;
+  font-size: 11px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes chomp {
+  to {
+    transform: scale(.95) translateY(5px);
+  }
+}
+
+@keyframes bounce {
+  to {
+    transform: translateY(-9px);
+  }
+}
+
+/* =========================================
+   MEDIUM SCREENS
+========================================= */
+
+@media (max-width: 1100px) and (min-width: 761px) {
+  .files-window {
+    left: 9%;
+    width: calc(91% - 320px);
+    min-height: 520px;
+  }
+
+  .window-body {
+    grid-template-columns: 135px minmax(0, 1fr);
+  }
+
+  .folder-side {
+    padding: 20px 12px;
+  }
+
+  .file-area {
+    padding: 22px 13px 0;
+  }
+
+  .pet-panel,
+  .goal-card {
+    right: 3%;
+    width: 245px;
+  }
+
+  .table-head,
+  .file-row {
+    grid-template-columns: minmax(90px, 1fr) 48px 43px 60px;
+    gap: 5px;
+  }
+
+  .desktop-icons {
+    left: 12px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 760px) {
+  .desktop {
+    min-height: 1100px;
+    overflow: visible;
+    padding: 65px 15px 65px;
+  }
+
+  .desktop-label {
+    left: 20px;
+    right: 20px;
+    top: 20px;
+  }
+
+  .desktop-icons {
+    display: none;
+  }
+
+  .desktop-intro {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin: 30px auto;
+    max-width: 500px;
+  }
+
+  .desktop-intro h2 {
+    font-size: 30px;
+  }
+
+  .files-window,
+  .pet-panel,
+  .goal-card {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto 16px;
+  }
+
+  .files-window {
+    min-height: 0;
+  }
+
+  .window-body {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .folder-side {
+    display: none;
+  }
+
+  .file-area {
+    padding: 20px 13px 0;
+  }
+
+  .area-header {
+    margin-bottom: 18px;
+  }
+
+  .area-header h1 {
+    font-size: 24px;
+  }
+
+  .view-control,
+  .table-head span:nth-child(2),
+  .file-type {
+    display: none;
+  }
+
+  .table-head,
+  .file-row {
+    grid-template-columns: minmax(100px, 1fr) 48px 65px;
+  }
+
+  .file-row {
+    min-height: 48px;
+  }
+
+  .pet-panel {
+    max-width: 540px;
+  }
+
+  .pet-stage {
+    height: 165px;
+  }
+
+  .milo {
+    width: 160px;
+    height: 160px;
+    background-size: 480px 320px;
+  }
+
+  .goal-card {
+    margin-bottom: 16px;
+  }
+
+  .taskbar {
+    position: fixed;
+  }
+
+  .task-hint {
+    display: none;
+  }
+
+  .window-bottom span:last-child {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .dialog-content {
+    padding: 18px 15px;
+  }
+
+  .dialog-actions {
+    justify-content: stretch;
+  }
+
+  .dialog-actions .button {
+    flex: 1;
+  }
+
+  .complete-content {
+    padding: 20px;
+  }
+
+  .complete-content h2 {
+    font-size: 25px;
+  }
+
+  .complete-stats {
+    gap: 25px;
+  }
+
+  .clock {
+    padding: 6px;
+  }
+}
+
+@media (min-width: 761px) {
+  .goal-card {
+    top: calc(11% + 450px);
+  }
+}
+
+
+/* =========================================
+   PIXEL POP OS — TYPOGRAPHY REFINEMENT
+   More realistic desktop UI typography
+========================================= */
+
+/* 1. System font stack */
+:root {
+  font-family:
+    "Segoe UI",
+    "Microsoft YaHei UI",
+    "Microsoft YaHei",
+    Arial,
+    sans-serif;
+}
+
+body {
+  font-family:
+    "Segoe UI",
+    "Microsoft YaHei UI",
+    "Microsoft YaHei",
+    Arial,
+    sans-serif;
+  font-size: 13px;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 2. Desktop labels */
+.desktop-label {
+  font-size: 10px;
+  letter-spacing: .08em;
+}
+
+.desktop-icon {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.desktop-icon small {
+  font-size: 10px;
+}
+
+/* 3. Intro */
+.desktop-intro h2 {
+  font-size: 32px;
+  letter-spacing: -.025em;
+}
+
+.desktop-intro p {
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+/* 4. Window title and controls */
+.window-title {
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.window-control {
+  font-size: 13px;
+}
+
+/* 5. File manager */
+.menu-bar {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.menu-day {
+  font-size: 10px;
+  letter-spacing: .02em;
+}
+
+.address-bar {
+  font-size: 11px;
+  letter-spacing: 0;
+}
+
+.folder-side {
+  font-size: 12px;
+}
+
+.side-title,
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: .06em;
+}
+
+.folder-side h2 {
+  font-size: 19px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.folder-side > p:not(.side-title) {
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.side-note {
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.area-header {
+  margin-bottom: 17px;
+}
+
+.area-header h1 {
+  font-size: 23px;
+  letter-spacing: -.02em;
+}
+
+.area-header p {
+  font-size: 12px;
+}
+
+.view-control {
+  font-size: 10px;
+  letter-spacing: .02em;
+}
+
+/* 6. File list */
+.table-head,
+.file-row {
+  grid-template-columns:
+    minmax(120px, 1fr) 65px 60px 75px;
+  gap: 8px;
+}
+
+.table-head {
+  padding-bottom: 8px;
+  font-size: 10px;
+  letter-spacing: .04em;
+}
+
+.file-row {
+  min-height: 39px;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.file-main {
+  gap: 8px;
+}
+
+.file-symbol {
+  font-size: 17px;
+}
+
+.file-name {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.file-type,
+.file-size {
+  font-size: 10px;
+  letter-spacing: 0;
+}
+
+.file-state {
+  font-size: 11px;
+}
+
+.area-footer {
+  font-size: 10px;
+  letter-spacing: .02em;
+}
+
+.window-bottom {
+  font-size: 11px;
+}
+
+/* 7. Milo panel */
+.pet-panel-title {
+  font-size: 10px;
+  letter-spacing: .04em;
+}
+
+.pet-name small,
+.speech-label {
+  font-size: 10px;
+  letter-spacing: .04em;
+}
+
+.pet-name h2 {
+  font-size: 25px;
+  letter-spacing: -.02em;
+}
+
+.pet-badge {
+  font-size: 9px;
+  letter-spacing: 0;
+}
+
+.pet-speech p {
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.pet-tip {
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.drop-hint {
+  font-size: 11px;
+}
+
+/* 8. Progress panel */
+.goal-card > div:first-child span {
+  font-size: 10px;
+  letter-spacing: .04em;
+}
+
+.goal-card b {
+  font-size: 16px;
+}
+
+.goal-bottom {
+  font-size: 11px;
+}
+
+/* 9. Taskbar */
+.start-button,
+.task-active {
+  font-size: 11px;
+  letter-spacing: 0;
+}
+
+.task-hint,
+.clock {
+  font-size: 10px;
+  letter-spacing: .02em;
+}
+
+/* 10. File preview dialog */
+.dialog-eyebrow {
+  font-size: 10px;
+  letter-spacing: .06em;
+}
+
+.dialog-content h2 {
+  font-size: 19px;
+  letter-spacing: -.01em;
+}
+
+.file-meta {
+  font-size: 10px;
+}
+
+.file-preview {
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.dialog-question {
+  font-size: 13px;
+}
+
+.button {
+  font-size: 12px;
+}
+
+.dialog-footnote {
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+/* 11. Completion dialog */
+.complete-content h2 {
+  font-size: 26px;
+  line-height: 1.4;
+}
+
+.complete-content > p {
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.complete-stats small {
+  font-size: 10px;
+  letter-spacing: .06em;
+}
+
+.complete-stats b {
+  font-size: 21px;
+}
+
+/* 12. Toast */
+.toast {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+/* 13. Medium screen adjustments */
+@media (max-width: 1100px) and (min-width: 761px) {
+  .file-row {
+    min-height: 37px;
+    font-size: 11px;
+  }
+
+  .file-name {
+    font-size: 11px;
+  }
+
+  .folder-side h2 {
+    font-size: 17px;
+  }
+}
+
+/* 14. Mobile adjustments */
+@media (max-width: 760px) {
+  .desktop-intro h2 {
+    font-size: 27px;
+  }
+
+  .file-row {
+    min-height: 43px;
+    font-size: 12px;
+  }
+
+  .area-header h1 {
+    font-size: 21px;
+  }
+
+  .pet-name h2 {
+    font-size: 24px;
+  }
+}
+
+
+/* Desktop shortcut refinements */
+.desktop-icons {
+  gap: 12px;
+  top: 78px;
+  left: 22px;
+}
+
+.desktop-icon {
+  width: 88px;
+  min-height: 68px;
+  padding: 5px 3px;
+  gap: 4px;
+  font-size: 11px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.desktop-icon > span:first-child {
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+/* Decorative icons are not clickable */
+.decorative-icon {
+  cursor: default;
+  user-select: none;
+}
+
+.decorative-icon:hover {
+  background: transparent;
+  border-color: transparent;
+}
+
+/* Day 5–7: Muted Pixel Pop */
+
+body.horror-mode .desktop {
+  background-color: #EAE5D9;
+}
+
+body.horror-mode .window {
+  background-color: #EAE5D9;
+}
+
+body.horror-mode .window-title,
+body.horror-mode .address-bar {
+  background-color: #AEBBC9;
+}
+
+body.horror-mode .folder-side,
+body.horror-mode .taskbar {
+  background-color: #D8CCA9;
+}
+
+body.horror-mode .button.primary {
+  background-color: #647795;
+  border-color: #647795;
+}
+
+body.horror-mode .button.secondary {
+  background-color: #D0B3B5;
+}
+
+body.horror-mode .file-row:hover,
+body.horror-mode .file-row.ready {
+  background-color: #D8D9D1;
+}
+
+body.horror-mode .progress-track div {
+  background-color: #647795;
+}
+
+body.horror-mode .pet-halo {
+  background-color: #D8CCA9;
+}
+
+body.horror-mode .pet-speech {
+  background-color: #D8D9D1;
+}
+
+/* Day 5–7: improve button text contrast */
+body.horror-mode .desktop button {
+  color: #E5E7E9 !important;
+}
+/* Day 5–7: desaturated desktop background */
+body.horror-mode .desktop {
+  background-color: #AEBCC8;
+
+  background-image:
+    radial-gradient(
+      circle at 70% 12%,
+      #C3CDD555,
+      transparent 37%
+    ),
+    linear-gradient(
+      155deg,
+      #BAC7D1 0%,
+      #9EAFBD 100%
+    );
+
+  transition: background 2s ease;
+}
+
+/* Day 5–7: File Viewer close button */
+body.horror-mode #dialog-close,
+body.horror-mode #close-folder {
+  color: #40536B !important;
+  background-color: #E5E3DA !important;
+  border-color: #A9B2BB !important;
+  opacity: 1 !important;
+}
+
+body.horror-mode #dialog-close:hover,
+body.horror-mode #close-folder:hover {
+  color: #FFFFFF !important;
+  background-color: #647795 !important;
+}
+
+/* Day 5–7: sidebar text contrast */
+body.horror-mode .folder-side {
+  color: #526174 !important;
+}
+
+body.horror-mode .folder-side h1,
+body.horror-mode .folder-side h2,
+body.horror-mode .folder-side h3,
+body.horror-mode .folder-side p,
+body.horror-mode .folder-side span {
+  color: #526174 !important;
+}
+
+body.horror-mode .folder-side .section-label {
+  color: #68798A !important;
+}
+
+/* Day 5–7: taskbar button contrast */
+body.horror-mode #start-button,
+body.horror-mode #task-files {
+  color: #40536B !important;
+  background-color: #DCE1E2 !important;
+  border-color: #9DAEBB !important;
+  opacity: 1 !important;
+}
+
+body.horror-mode #start-button:hover,
+body.horror-mode #task-files:hover {
+  color: #FFFFFF !important;
+  background-color: #647795 !important;
+}
+
+/* Active My Files button */
+body.horror-mode #task-files.active,
+body.horror-mode #task-files[aria-pressed="true"] {
+  color: #344C68 !important;
+  background-color: #C4D0D6 !important;
+}
