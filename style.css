@@ -1660,3 +1660,126 @@ body {
   background: transparent;
   border-color: transparent;
 }
+
+/* Day 5–7: Muted Pixel Pop */
+
+body.horror-mode .desktop {
+  background-color: #EAE5D9;
+}
+
+body.horror-mode .window {
+  background-color: #EAE5D9;
+}
+
+body.horror-mode .window-title,
+body.horror-mode .address-bar {
+  background-color: #AEBBC9;
+}
+
+body.horror-mode .folder-side,
+body.horror-mode .taskbar {
+  background-color: #D8CCA9;
+}
+
+body.horror-mode .button.primary {
+  background-color: #647795;
+  border-color: #647795;
+}
+
+body.horror-mode .button.secondary {
+  background-color: #D0B3B5;
+}
+
+body.horror-mode .file-row:hover,
+body.horror-mode .file-row.ready {
+  background-color: #D8D9D1;
+}
+
+body.horror-mode .progress-track div {
+  background-color: #647795;
+}
+
+body.horror-mode .pet-halo {
+  background-color: #D8CCA9;
+}
+
+body.horror-mode .pet-speech {
+  background-color: #D8D9D1;
+}
+
+/* Day 5–7: improve button text contrast */
+body.horror-mode .desktop button {
+  color: #E5E7E9 !important;
+}
+/* Day 5–7: desaturated desktop background */
+body.horror-mode .desktop {
+  background-color: #AEBCC8;
+
+  background-image:
+    radial-gradient(
+      circle at 70% 12%,
+      #C3CDD555,
+      transparent 37%
+    ),
+    linear-gradient(
+      155deg,
+      #BAC7D1 0%,
+      #9EAFBD 100%
+    );
+
+  transition: background 2s ease;
+}
+
+/* Day 5–7: File Viewer close button */
+body.horror-mode #dialog-close,
+body.horror-mode #close-folder {
+  color: #40536B !important;
+  background-color: #E5E3DA !important;
+  border-color: #A9B2BB !important;
+  opacity: 1 !important;
+}
+
+body.horror-mode #dialog-close:hover,
+body.horror-mode #close-folder:hover {
+  color: #FFFFFF !important;
+  background-color: #647795 !important;
+}
+
+/* Day 5–7: sidebar text contrast */
+body.horror-mode .folder-side {
+  color: #526174 !important;
+}
+
+body.horror-mode .folder-side h1,
+body.horror-mode .folder-side h2,
+body.horror-mode .folder-side h3,
+body.horror-mode .folder-side p,
+body.horror-mode .folder-side span {
+  color: #526174 !important;
+}
+
+body.horror-mode .folder-side .section-label {
+  color: #68798A !important;
+}
+
+/* Day 5–7: taskbar button contrast */
+body.horror-mode #start-button,
+body.horror-mode #task-files {
+  color: #40536B !important;
+  background-color: #DCE1E2 !important;
+  border-color: #9DAEBB !important;
+  opacity: 1 !important;
+}
+
+body.horror-mode #start-button:hover,
+body.horror-mode #task-files:hover {
+  color: #FFFFFF !important;
+  background-color: #647795 !important;
+}
+
+/* Active My Files button */
+body.horror-mode #task-files.active,
+body.horror-mode #task-files[aria-pressed="true"] {
+  color: #344C68 !important;
+  background-color: #C4D0D6 !important;
+}
