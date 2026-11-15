@@ -57,7 +57,6 @@ document.body.classList.toggle('horror-mode', day >= 5);
   } else {
     fadeTo(nextBGM, 0.40, 1800); // Horror：40%
   }
-fadeTo(nextBGM, targetVolume);
 
     if (previousBGM && previousBGM !== nextBGM) {
       fadeTo(previousBGM, 0, 1800);
