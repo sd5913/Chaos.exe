@@ -3,11 +3,16 @@ const list = $('#file-list'), folder = $('#files-window'), dialog = $('#dialog-b
 const speech = $('#speech'), milo = $('#milo'), target = $('#pet-target');
 const complete = $('#complete-backdrop'), nextButton = $('#restart');
 let day = 0, released = 0, selected = null, finished = false, toastTimer;
-let states = {}, memories = new Set();
+let states = {}, memories = new Set(), viewed = new Set();
 const finishDay = document.createElement('button');
 finishDay.className = 'button primary'; finishDay.textContent = '完成当天 →'; finishDay.hidden = true;
 finishDay.style.marginTop = '10px'; $('#goal-card').append(finishDay);
-finishDay.onclick = () => { if (released >= storyDays[day].goal) { finished = true; showCompletion(); } };
+finishDay.onclick = () => {
+  if (released < storyDays[day].goal) return;
+  const unread = storyDays[day].files.filter(file => !viewed.has(key(file)));
+  if (unread.length) { toast(`请先查看今天的全部文件，还剩 ${unread.length} 个未查看。`); return; }
+  finished = true; showCompletion();
+};
 const greetings = [
   'Welcome back. Let’s see what we have today.',
   'There are still old files to sort through.',
@@ -62,7 +67,7 @@ function render() {
     row.draggable=state==='ready'; row.setAttribute('aria-label',`${file[0]}, ${file[1]} units`);
     row.innerHTML='<div class="file-main"><span class="file-symbol">▤</span><span class="file-name"></span></div><span class="file-type">FILE</span><span class="file-size"></span><span class="file-state"></span>';
     row.querySelector('.file-name').textContent=file[0]; row.querySelector('.file-size').textContent=file[1]+' U';
-    row.querySelector('.file-state').textContent=state==='ready'?'待删除':state==='kept'?'已保留':'未处理';
+    row.querySelector('.file-state').textContent=state==='ready'?'待删除':state==='kept'?'已保留':viewed.has(key(file))?'已查看':'未查看';
     row.addEventListener('dblclick',()=>openFile(file));
     row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openFile(file)}});
     row.addEventListener('click',()=>{if(matchMedia('(max-width:760px)').matches)openFile(file);else if(state==='ready')toast('拖给 Milo，或双击后点击“喂给 Milo”。')});
@@ -73,7 +78,8 @@ function render() {
   const pct=Math.min(100,Math.round(released/current.goal*100));
   $('#goal-percentage').textContent=pct+'%'; $('#released').textContent=released;
   document.querySelector('.goal-bottom span:first-child').innerHTML=`释放 <strong id="released">${released}</strong> / ${current.goal} 单位`;
-  $('#remaining').textContent=released>=current.goal?'目标已达成':`还需 ${current.goal-released} 单位`;
+  const unreadCount=current.files.filter(file=>!viewed.has(key(file))).length;
+  $('#remaining').textContent=released>=current.goal?(unreadCount?`目标已达成 · 还需查看 ${unreadCount} 个文件`:'目标已达成 · 文件已全部查看'):`还需 ${current.goal-released} 单位 · 未查看 ${unreadCount} 个`;
   $('#progress-bar').style.width=pct+'%';
   finishDay.hidden=released<current.goal;
 }
@@ -85,6 +91,7 @@ function openFile(file) {
   if(clueText[file[0]]) content+='\n\n── STORY ──\n'+clueText[file[0]];
   if(file[3]) { memories.add(key(file)); content+='\n\n✦ MEMORY FRAGMENT\n'+file[3]; }
   $('#dialog-text').textContent=content;
+  viewed.add(key(file)); render();
   $('#prepare-file').textContent=states[key(file)]==='ready'?'喂给 Milo':'准备删除';
   dialog.hidden=false; talk(day<3?'Take your time. You can look before deciding.':'I’m following your preferences.','read'); $('#dialog-close').focus();
 }
@@ -97,7 +104,7 @@ $('#prepare-file').onclick=()=>{if(!selected)return;const f=selected;if(states[k
 function feed(file){
   if(finished||!file||states[key(file)]!=='ready')return;
   states[key(file)]='eaten';released+=file[1];render();talk('File removed. Storage status updated.','eat');
-  if(released>=storyDays[day].goal)toast('目标已达成！你可以继续查看文件，或点击“完成当天”。');
+  if(released>=storyDays[day].goal){const unread=storyDays[day].files.filter(f=>!viewed.has(key(f))).length;toast(unread?`目标已达成！请先查看剩余 ${unread} 个文件。`:'目标已达成，文件已全部查看。可以点击“完成当天”。');}
 }
 target.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='move';target.classList.add('drag-over')});
 target.addEventListener('dragleave',e=>{if(!target.contains(e.relatedTarget))target.classList.remove('drag-over')});
