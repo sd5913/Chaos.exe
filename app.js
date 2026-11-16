@@ -63,6 +63,9 @@ function render() {
     row.innerHTML='<div class="file-main"><span class="file-symbol">▤</span><span class="file-name"></span></div><span class="file-type">FILE</span><span class="file-size"></span><span class="file-state"></span>';
     row.querySelector('.file-name').textContent=file[0]; row.querySelector('.file-size').textContent=file[1]+' U';
     row.querySelector('.file-state').textContent=state==='ready'?'待删除':state==='kept'?'已保留':'未处理';
+    if(day === 1 && dayTwoImages[file[0]]) {
+      row.querySelector('.file-type').textContent = file[0].endsWith('.pdf') ? 'PDF' : 'PNG';
+    }
     row.addEventListener('dblclick',()=>openFile(file));
     row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openFile(file)}});
     row.addEventListener('click',()=>{if(matchMedia('(max-width:760px)').matches)openFile(file);else if(state==='ready')toast('拖给 Milo，或双击后点击“喂给 Milo”。')});
@@ -77,21 +80,125 @@ function render() {
   $('#progress-bar').style.width=pct+'%';
   finishDay.hidden=released<current.goal;
 }
+const duplicateImages = {
+  'desktop_01.png': {src:'assets/day1/day1_shopping_list.png', label:'购物清单'},
+  'desktop_01_copy.png': {src:'assets/day1/day1_work_quality_review.png', label:'工作评价'}
+};
+const travelImages = {
+  'hotel_order_san_francisco.png': {src:'assets/day1/day1_hotel_itinerary.png', label:'旧金山酒店订单'},
+  'flight_ticket_chicago_boston.png': {src:'assets/day1/day1-机票1.png', label:'芝加哥至波士顿机票'},
+  'flight_ticket_new_york_san_francisco.png': {src:'assets/day1/day1-机票2.png', label:'纽约至旧金山机票'},
+  'taxi_receipt_boston.png': {src:'assets/day1/day1_taxi_boston.png', label:'波士顿出租车发票'},
+  'taxi_receipt_san_francisco.png': {src:'assets/day1/day1_taxi_san_francisco.png', label:'旧金山出租车发票'}
+};
+const dayTwoImages = {
+  'rent_overdue.png': {src:'assets/day2/rent_overdue.png', label:'房租逾期通知'},
+  'card_NY_084.png': {src:'assets/day2/card_NY_084.png', label:'银行卡'},
+  'dismissal_notice.pdf': {src:'assets/day2/dismissal_notice.png', label:'辞退通知书', format:'pdf'},
+  'company_rules_signed.pdf': {src:'assets/day2/internal_operating_procedure_signed.png', label:'公司规章制度（签署版）', format:'pdf'}
+};
+const imageViewer = document.createElement('dialog');
+imageViewer.className = 'image-viewer';
+imageViewer.setAttribute('aria-label', '图片预览');
+imageViewer.innerHTML = '<div class="image-viewer-bar"><button type="button" class="window-control" aria-label="关闭预览" autofocus>×</button></div><div class="image-viewer-page"><img class="archive-image" alt=""><p class="image-viewer-error" role="status" hidden>图片加载失败，请关闭后重试。</p></div>';
+document.body.append(imageViewer);
+const imageActions = document.createElement('div');
+imageActions.className = 'image-viewer-actions';
+imageActions.hidden = true;
+imageActions.innerHTML = '<button type="button" class="button secondary">保留文件</button><button type="button" class="button primary">准备删除</button>';
+imageViewer.append(imageActions);
+let previewFile = null, imageRequest = 0;
+const [imageKeep, imageDelete] = imageActions.querySelectorAll('button');
+imageKeep.onclick = () => {
+  if(!previewFile) return;
+  states[key(previewFile)] = 'kept';
+  imageViewer.close(); render();
+};
+imageDelete.onclick = () => {
+  if(!previewFile) return;
+  const file = previewFile;
+  imageViewer.close();
+  if(states[key(file)] === 'ready') { feed(file); return; }
+  states[key(file)] = 'ready'; render();
+  toast('拖给 Milo，或重新打开文件后点击“喂给 Milo”。');
+};
+const imageViewerImage = imageViewer.querySelector('img');
+const imageViewerError = imageViewer.querySelector('.image-viewer-error');
+imageViewer.querySelector('button').onclick = () => imageViewer.close();
+imageViewerImage.onerror = () => {
+  imageViewerImage.hidden = true;
+  imageViewerError.hidden = false;
+};
+async function openImage(image, file = null) {
+  const request = ++imageRequest;
+  // Decode before opening so the window has its full image size on the first frame.
+  const loaded = new Image();
+  loaded.src = image.src;
+  let failed = false;
+  try { await loaded.decode(); } catch { failed = true; }
+  if(request !== imageRequest) return;
+  previewFile = file;
+  imageActions.hidden = !file;
+  imageViewer.classList.toggle('file-image-viewer', !!file);
+  imageDelete.textContent = file && states[key(file)] === 'ready' ? '喂给 Milo' : '准备删除';
+  imageViewer.classList.toggle('pdf-viewer', image.format === 'pdf');
+  imageViewerImage.hidden = failed;
+  imageViewerError.hidden = !failed;
+  imageViewerImage.alt = image.label;
+  imageViewerImage.src = image.src;
+  if(!failed) await imageViewerImage.decode().catch(() => {});
+  if(request !== imageRequest) return;
+  imageViewer.setAttribute('aria-label', image.label);
+  if(!imageViewer.open) imageViewer.showModal();
+  imageViewer.querySelector('.image-viewer-page').scrollTop = 0;
+}
+function showArchiveContents(content, images) {
+  const preview = $('#dialog-text');
+  preview.replaceChildren();
+  const entries = document.createElement('div');
+  entries.className = 'archive-entries';
+  content.split('\n').forEach(name => {
+    const image = images[name];
+    const entry = document.createElement(image ? 'button' : 'div');
+    entry.textContent = image ? `▧ ${name} — ${image.label}` : name;
+    if (image) {
+      entry.type = 'button';
+      entry.className = 'button secondary archive-entry';
+      entry.onclick = () => openImage(image);
+    }
+    entries.append(entry);
+  });
+  preview.append(entries);
+}
 function openFile(file) {
   if(finished || states[key(file)]==='eaten')return; selected=file;
+  const image = day === 1 ? dayTwoImages[file[0]] : null;
+  if(image) {
+    if(file[3]) memories.add(key(file));
+    dialog.hidden = true;
+    selected = null;
+    openImage(image, file);
+    return;
+  }
   $('#dialog-title').textContent=file[0]; $('#dialog-type').textContent='FILE';
   $('#dialog-meta').textContent=`${file[1]} UNITS / FICTIONAL FILE`;
   let content=file[2];
   if(clueText[file[0]]) content+='\n\n── STORY ──\n'+clueText[file[0]];
   if(file[3]) { memories.add(key(file)); content+='\n\n✦ MEMORY FRAGMENT\n'+file[3]; }
   $('#dialog-text').textContent=content;
+  if(day === 0 && file[0] === 'duplicate_screenshots.zip') showArchiveContents(content, duplicateImages);
+  if(day === 0 && file[0] === 'travel_archive.zip') showArchiveContents(content, travelImages);
   $('#prepare-file').textContent=states[key(file)]==='ready'?'喂给 Milo':'准备删除';
   dialog.hidden=false; talk(day<3?'Take your time. You can look before deciding.':'I’m following your preferences.','read'); $('#dialog-close').focus();
 }
 function closeDialog(){dialog.hidden=true;selected=null;}
 $('#dialog-close').onclick=closeDialog;
 dialog.addEventListener('click',e=>{if(e.target===dialog)closeDialog()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!dialog.hidden)closeDialog()});
+document.addEventListener('keydown',e=>{
+  if(e.key !== 'Escape') return;
+  if(imageViewer.open) { e.preventDefault(); imageViewer.close(); return; }
+  if(!dialog.hidden) closeDialog();
+});
 $('#keep-file').onclick=()=>{if(!selected)return;const f=selected;states[key(f)]='kept';closeDialog();render();talk('Understood. Keeping it.');toast('已保留 '+f[0]+'，可以随时重新查看。')};
 $('#prepare-file').onclick=()=>{if(!selected)return;const f=selected;if(states[key(f)]==='ready'){closeDialog();feed(f);return}states[key(f)]='ready';closeDialog();render();talk('Ready. Drag the file to me, or use the feed button.');toast('拖给 Milo，或双击文件后点击“喂给 Milo”。')};
 function feed(file){

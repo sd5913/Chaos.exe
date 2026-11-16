@@ -5,13 +5,12 @@ const storyDays = [
  ['duplicate_screenshots.zip',12,'DUPLICATE SCREENSHOTS\ndesktop_01.png\ndesktop_01_copy.png\nloading_screen.png\nloading_screen_copy.png\ncoffee_blurry.jpg'],
  ['MILO_README.txt',3,'MILO v1.0\nA small friend for a messy desktop.\n\nMilo can find duplicates, suggest cleanup and remember your preferences.\nCreated by: E. Vale'],
  ['job_application_v3.docx',5,'JOB APPLICATION\nName: Eris Vale\nPrevious employer: Lumen Data\nPosition: Data Technician\nSkills: data processing, scripting, system maintenance\nReason for leaving: __________'],
- ['travel_archive.zip',12,'TRAVEL ARCHIVE\nbooking_NY_084.pdf\nbooking_NY_091.pdf\nticket_LN_033.pdf\n\nBooking reference: NY-084\nPassenger: M. Rowe\nStatus: Confirmed','A booking page flashes. Someone clicks CONFIRM BOOKING.'] ]},
+ ['travel_archive.zip',12,'TRAVEL ARCHIVE\nhotel_order_san_francisco.png\nflight_ticket_chicago_boston.png\nflight_ticket_new_york_san_francisco.png\ntaxi_receipt_boston.png\ntaxi_receipt_san_francisco.png','A booking page flashes. Someone clicks CONFIRM BOOKING.'] ]},
  {goal:8,files:[
- ['holiday_wallpaper_old.png',5,'An old photograph of a beach, blue water and a yellow umbrella.'],
- ['dismissal_notice.eml',4,'From: Human Resources, Lumen Data\nTo: Eris Vale\nSubject: Notice of termination\n\nFollowing an investigation into the unauthorised disclosure of company information, your employment has been terminated. Your access has been revoked.'],
- ['rent_overdue.pdf',3,'PAYMENT REMINDER\nTenant: Eris Vale\nYour rent remains unpaid.\n\nHandwritten: One more job. Then I can catch up.'],
- ['card_NY_084.png',9,'M. ROWE\n•••• •••• •••• 4812\n\nNY-084\nBooking successful','A hand enters card information into a booking page.'],
- ['profile_021.jpg',7,'A photograph of a person holding a birthday cake.\n\nPROFILE 021\nName: Morgan Rowe\nLocation: New York\nLinked record: NY-084','A photograph is dragged into a folder named PROFILES.'] ]},
+ ['dismissal_notice.pdf',4,'NOTICE OF TERMINATION\nLumen Data — Human Resources\nEmployee: Eris Vale\n\nFollowing an investigation into the unauthorised disclosure of company information, your employment has been terminated. Your access has been revoked.'],
+ ['company_rules_signed.pdf',4,'COMPANY RULES / SIGNED COPY\nLumen Data\nInternal operating procedures and company regulations.'],
+ ['rent_overdue.png',3,'PAYMENT REMINDER\nTenant: Eris Vale\nYour rent remains unpaid.\n\nHandwritten: One more job. Then I can catch up.'],
+ ['card_NY_084.png',9,'M. ROWE\n•••• •••• •••• 4812\n\nNY-084\nBooking successful','A hand enters card information into a booking page.'] ]},
  {goal:11,files:[
  ['contacts_backup_OLD.vcf',3,'CONTACT BACKUP\nEntries found: 18\nEntries without phone numbers: 11'],
  ['map_cache.bin',4,'MAP CACHE\nCached map images and location data.\nPreview unavailable.'],
