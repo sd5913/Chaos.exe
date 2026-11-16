@@ -70,7 +70,7 @@ const dayThoughts = [
 const thoughtBox=document.createElement('aside');
 thoughtBox.className='thought-box'; thoughtBox.hidden=true;
 thoughtBox.setAttribute('aria-live','polite');
-thoughtBox.innerHTML='<span>ERIS / 心里想</span><p></p>';
+thoughtBox.innerHTML='<p></p>';
 document.body.append(thoughtBox);
 const miloBubble=document.createElement('aside');
 miloBubble.className='milo-bubble'; miloBubble.hidden=true;
@@ -121,7 +121,7 @@ function openFile(file) {
   if(file[3]) { memories.add(key(file)); content+='\n\n✦ MEMORY FRAGMENT\n'+file[3]; }
   $('#dialog-text').textContent=content;
   const [thought,miloLine]=fileThoughts[file[0]] || dayThoughts[day];
-  thoughtBox.querySelector('p').textContent=thought;
+  thoughtBox.querySelector('p').textContent=`“${thought}”`;
   miloBubble.querySelector('p').textContent=miloLine;
   thoughtBox.hidden=false; miloBubble.hidden=false;
   viewed.add(key(file)); render();
