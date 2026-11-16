@@ -67,11 +67,16 @@ const dayThoughts = [
   ['如果把它删掉，我还会记得吗？','你说过，有些事不需要记住。'],
   ['也许答案一直就在这些文件里。','你真的想知道吗？']
 ];
-const fileConversation=document.createElement('div');
-fileConversation.className='file-preview';
-fileConversation.style.cssText='margin-top:12px;white-space:pre-line';
-fileConversation.setAttribute('aria-live','polite');
-$('#dialog-text').after(fileConversation);
+const thoughtBox=document.createElement('aside');
+thoughtBox.className='thought-box'; thoughtBox.hidden=true;
+thoughtBox.setAttribute('aria-live','polite');
+thoughtBox.innerHTML='<span>ERIS / 心里想</span><p></p>';
+document.body.append(thoughtBox);
+const miloBubble=document.createElement('aside');
+miloBubble.className='milo-bubble'; miloBubble.hidden=true;
+miloBubble.setAttribute('aria-live','polite');
+miloBubble.innerHTML='<span>MILO</span><p></p>';
+document.body.append(miloBubble);
 function updateIntro(){
   const intro=$('#desktop-intro'); intro.querySelector('span').textContent=`DAY ${String(day+1).padStart(2,'0')} / ${dayStories[day].title}`;
   intro.querySelector('h2').textContent=dayStories[day].title;
@@ -116,12 +121,14 @@ function openFile(file) {
   if(file[3]) { memories.add(key(file)); content+='\n\n✦ MEMORY FRAGMENT\n'+file[3]; }
   $('#dialog-text').textContent=content;
   const [thought,miloLine]=fileThoughts[file[0]] || dayThoughts[day];
-  fileConversation.textContent=`ERIS / 心里想\n${thought}\n\nMILO\n${miloLine}`;
+  thoughtBox.querySelector('p').textContent=thought;
+  miloBubble.querySelector('p').textContent=miloLine;
+  thoughtBox.hidden=false; miloBubble.hidden=false;
   viewed.add(key(file)); render();
   $('#prepare-file').textContent=states[key(file)]==='ready'?'喂给 Milo':'准备删除';
   dialog.hidden=false; talk(miloLine,'read'); $('#dialog-close').focus();
 }
-function closeDialog(){dialog.hidden=true;selected=null;}
+function closeDialog(){dialog.hidden=true;thoughtBox.hidden=true;miloBubble.hidden=true;selected=null;}
 $('#dialog-close').onclick=closeDialog;
 dialog.addEventListener('click',e=>{if(e.target===dialog)closeDialog()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!dialog.hidden)closeDialog()});
