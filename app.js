@@ -4,6 +4,20 @@ const speech = $('#speech'), milo = $('#milo'), target = $('#pet-target');
 const complete = $('#complete-backdrop'), nextButton = $('#restart');
 let day = 0, released = 0, selected = null, finished = false, toastTimer;
 let states = {}, memories = new Set(), viewed = new Set();
+let currentApp = 'My Files';
+function fileApp(file) {
+  const name=file[0].toLowerCase();
+  if (/browser|search_history|map_cache|widget|\.eml$/.test(name)) return 'Internet Explorer';
+  if (/screenshot|wallpaper|\.png$|\.jpg$/.test(name)) return 'Paint';
+  if (/\.wav$|\.mov$/.test(name)) return 'Media Player';
+  if (/game_save/.test(name)) return 'Games';
+  if (/\.txt$|\.md$|\.py$|\.json$|\.csv$|\.cfg$|\.log$/.test(name)) return 'Notepad';
+  return 'My Files';
+}
+function searchHint() {
+  const apps=[...new Set(storyDays[day].files.filter(f=>!viewed.has(key(f))).map(fileApp))];
+  return apps.length ? `今天还有文件在：${apps.join('、')}。双击桌面应用寻找，打开后再决定是否清理。` : '今天的文件都看过了；达到清理目标后就能完成当天。';
+}
 const finishDay = document.createElement('button');
 finishDay.className = 'button primary'; finishDay.textContent = '完成当天 →'; finishDay.hidden = true;
 finishDay.style.marginTop = '10px'; $('#goal-card').append(finishDay);
@@ -23,7 +37,7 @@ const greetings = [
   'Only a few files remain. I am following your preferences.'
 ];
 const dayStories = [
-  {title:'A FRESH START', text:'Milo：欢迎回来！我发现桌面上有一些旧文件。我们先打开 My Files，看看哪些需要清理吧。'},
+  {title:'A FRESH START', text:'Milo：欢迎回来！旧文件分散在桌面应用里。先去浏览器、画图、记事本和 My Files 找找吧。'},
   {title:'OLD RECORDS', text:'Milo：还有一些旧记录需要整理。请打开文件看看，再决定是否保留。'},
   {title:'SOMETHING IS FAMILIAR', text:'Milo：今天也有一些旧数据。你似乎在某些文件上停留得更久了，慢慢来。'},
   {title:'CLIENT REQUESTS', text:'Milo：今天的文件里有一些邮件和工作记录。需要清理的时候，请告诉我。'},
@@ -80,7 +94,7 @@ document.body.append(miloBubble);
 function updateIntro(){
   const intro=$('#desktop-intro'); intro.querySelector('span').textContent=`DAY ${String(day+1).padStart(2,'0')} / ${dayStories[day].title}`;
   intro.querySelector('h2').textContent=dayStories[day].title;
-  intro.querySelector('p').textContent=dayStories[day].text;
+  intro.querySelector('p').textContent=searchHint();
 }
 function talk(text, mood='idle') { speech.textContent = text; milo.className = 'milo ' + mood; }
 function toast(text) { const el=$('#toast'); el.textContent=text; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),3500); }
@@ -90,7 +104,12 @@ function render() {
   document.querySelector('.menu-day').textContent=`DAY ${String(day+1).padStart(2,'0')}`;
   document.querySelector('.desktop-label b').textContent=`DAY ${String(day+1).padStart(2,'0')} • 09:14 AM`;
   document.querySelector('.goal-card > div:first-child span').textContent=`DAY ${String(day+1).padStart(2,'0')} / CLEANUP GOAL`;
-  current.files.filter(f=>states[key(f)]!=='eaten').forEach(file=>{
+  const appFiles=current.files.filter(f=>fileApp(f)===currentApp&&states[key(f)]!=='eaten');
+  folder.querySelector('.window-title > span').textContent='▣  '+currentApp;
+  folder.querySelector('.address-bar div').textContent='▣  '+currentApp;
+  folder.querySelector('.area-header h1').textContent=currentApp;
+  folder.setAttribute('aria-label',currentApp+' 文件');
+  appFiles.forEach(file=>{
     const state=states[key(file)] || 'new', row=document.createElement('div');
     row.className='file-row'+(state==='ready'?' ready':''); row.tabIndex=0; row.setAttribute('role','button');
     row.draggable=state==='ready'; row.setAttribute('aria-label',`${file[0]}, ${file[1]} units`);
@@ -103,7 +122,8 @@ function render() {
     row.addEventListener('dragstart',e=>{if(state!=='ready'){e.preventDefault();toast('先双击文件，选择“准备删除”。');return}e.dataTransfer.setData('text/plain',file[0]);target.classList.add('drag-over')});
     row.addEventListener('dragend',()=>target.classList.remove('drag-over')); list.append(row);
   });
-  $('#file-count').textContent=`${current.files.filter(f=>states[key(f)]!=='eaten').length} ITEMS`;
+  $('#file-count').textContent=`${appFiles.length} ITEMS`;
+  if(!appFiles.length){const empty=document.createElement('p');empty.textContent='这个应用里暂时没有当天的文件。关闭窗口，看看其他应用。';list.append(empty);}
   const pct=Math.min(100,Math.round(released/current.goal*100));
   $('#goal-percentage').textContent=pct+'%'; $('#released').textContent=released;
   document.querySelector('.goal-bottom span:first-child').innerHTML=`释放 <strong id="released">${released}</strong> / ${current.goal} 单位`;
@@ -128,7 +148,7 @@ function openFile(file) {
   $('#prepare-file').textContent=states[key(file)]==='ready'?'喂给 Milo':'准备删除';
   dialog.hidden=false; talk(miloLine,'read'); $('#dialog-close').focus();
 }
-function closeDialog(){dialog.hidden=true;thoughtBox.hidden=true;miloBubble.hidden=true;selected=null;}
+function closeDialog(){dialog.hidden=true;thoughtBox.hidden=true;miloBubble.hidden=true;selected=null;talk(searchHint());}
 $('#dialog-close').onclick=closeDialog;
 dialog.addEventListener('click',e=>{if(e.target===dialog)closeDialog()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!dialog.hidden)closeDialog()});
@@ -177,10 +197,11 @@ function showEnding(keep){
 nextButton.onclick=()=>{if(day===6){showEnding(true);return}day++;// 根据当前游戏日切换背景音乐
   if(window.playBGMForDay){
     window.playBGMForDay(day + 1);
-  }released=0;finished=false;complete.hidden=true;folder.hidden=true;$('#desktop-intro').classList.remove('hidden-intro');updateIntro();render();talk(greetings[day]);showStory();};
-function openFolder(){folder.hidden=false;$('#desktop-intro').classList.add('hidden-intro');talk(greetings[day]);}
-$('#intro-open').onclick=openFolder;$('#open-folder').ondblclick=openFolder;$('#open-folder').onclick=()=>toast('双击打开 My Files');
-$('#task-files').onclick=openFolder;$('#start-button').onclick=openFolder;
+  }released=0;finished=false;currentApp='My Files';complete.hidden=true;folder.hidden=true;$('#desktop-intro').classList.remove('hidden-intro');updateIntro();render();talk(searchHint());showStory();};
+function openFolder(app='My Files'){currentApp=app;folder.hidden=false;$('#desktop-intro').classList.add('hidden-intro');render();talk(searchHint());}
+$('#intro-open').onclick=()=>openFolder('My Files');$('#open-folder').ondblclick=()=>openFolder('My Files');$('#open-folder').onclick=()=>toast('双击打开 My Files');
+document.querySelectorAll('.decorative-icon').forEach(icon=>{const name=icon.querySelectorAll('span')[1].textContent.trim();icon.setAttribute('role','button');icon.tabIndex=0;icon.setAttribute('aria-label','打开 '+name);icon.ondblclick=()=>openFolder(name);icon.onclick=()=>{if(matchMedia('(max-width:760px)').matches)openFolder(name);else toast('双击打开 '+name)};icon.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openFolder(name)}};});
+$('#task-files').onclick=()=>openFolder(currentApp);$('#start-button').onclick=()=>openFolder('My Files');
 $('#open-goal').onclick=()=>toast(`今日目标：释放 ${storyDays[day].goal} 单位，目前 ${released} 单位。`);
 $('#minimize-folder').onclick=$('#close-folder').onclick=()=>{folder.hidden=true;$('#desktop-intro').classList.remove('hidden-intro')};
 updateIntro();render();showStory();
