@@ -1,7 +1,6 @@
 # CLEANME.md
-<img width="736" height="449" alt="image" src="https://github.com/user-attachments/assets/93d60f4d-d30b-4855-82be-c673d8e6be07" />
-
 A retro desktop cleanup game with a psychological horror narrative.
+demo：https://sd5913.github.io/Chaos.exe/
 
 ## About the Game
 **CLEANME.md** is a desktop simulation and psychological horror game in which players take the role of a user who has lost their memories.
