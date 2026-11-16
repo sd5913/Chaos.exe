@@ -48,6 +48,30 @@ const clueText = {
   'export_log.txt':'ERIS: Sent by… me?',
   'USER_PREFERENCES.cfg':'MILO: This is what you configured me to do.\nERIS: These records… they’re mine.'
 };
+const fileThoughts = {
+  'travel_archive.zip':['这些行程记录……我为什么记不起来？','旧的工作资料而已。你可以先看看，再决定。'],
+  'card_NY_084.png':['这张卡不属于我，为什么会在这里？','可能是误存的图片。留着也占空间。'],
+  'profile_021.jpg':['照片里的人是谁？这个编号好像见过。','只是一个旧文件，不必想太多。'],
+  'data_merge_script.py':['这是我写的代码？我用它整理过什么？','你以前常处理数据，这很正常。'],
+  'client_requests.eml':['这些要求……我真的答应过吗？','不舒服的东西，可以交给我处理。'],
+  'payment_history.png':['这些钱从哪里来？我到底做了什么？','别看太久。清理目标还没有完成。'],
+  'export_log.txt':['发送人是我。那些资料真的被我送出去了？','我一直按照你的指示工作。'],
+  'USER_PREFERENCES.cfg':['这些设置是我自己留下的吗？','你让我清理证据，也让我帮你忘记。']
+};
+const dayThoughts = [
+  ['这些文件看起来很普通……但我为什么一点印象也没有？','慢慢看，整理完就会轻松一些。'],
+  ['这份旧记录和我有什么关系？','如果用不到，就让我帮你清理吧。'],
+  ['好像有哪里不对，我是不是漏掉了什么？','不用担心，我会照顾好这些文件。'],
+  ['这份记录背后还有什么我不知道的事？','有些东西留下来只会让你分心。'],
+  ['我越看越觉得不安。','请继续清理，我们快完成了。'],
+  ['如果把它删掉，我还会记得吗？','你说过，有些事不需要记住。'],
+  ['也许答案一直就在这些文件里。','你真的想知道吗？']
+];
+const fileConversation=document.createElement('div');
+fileConversation.className='file-preview';
+fileConversation.style.cssText='margin-top:12px;white-space:pre-line';
+fileConversation.setAttribute('aria-live','polite');
+$('#dialog-text').after(fileConversation);
 function updateIntro(){
   const intro=$('#desktop-intro'); intro.querySelector('span').textContent=`DAY ${String(day+1).padStart(2,'0')} / ${dayStories[day].title}`;
   intro.querySelector('h2').textContent=dayStories[day].title;
@@ -91,9 +115,11 @@ function openFile(file) {
   if(clueText[file[0]]) content+='\n\n── STORY ──\n'+clueText[file[0]];
   if(file[3]) { memories.add(key(file)); content+='\n\n✦ MEMORY FRAGMENT\n'+file[3]; }
   $('#dialog-text').textContent=content;
+  const [thought,miloLine]=fileThoughts[file[0]] || dayThoughts[day];
+  fileConversation.textContent=`ERIS / 心里想\n${thought}\n\nMILO\n${miloLine}`;
   viewed.add(key(file)); render();
   $('#prepare-file').textContent=states[key(file)]==='ready'?'喂给 Milo':'准备删除';
-  dialog.hidden=false; talk(day<3?'Take your time. You can look before deciding.':'I’m following your preferences.','read'); $('#dialog-close').focus();
+  dialog.hidden=false; talk(miloLine,'read'); $('#dialog-close').focus();
 }
 function closeDialog(){dialog.hidden=true;selected=null;}
 $('#dialog-close').onclick=closeDialog;
