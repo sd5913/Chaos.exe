@@ -1891,6 +1891,77 @@ body.horror-mode #task-files:hover {
   background-color: #647795 !important;
 }
 
+/* Milo accompanies the current document and points to the next reading stop. */
+.milo-companion {
+  position: fixed;
+  z-index: 40;
+  width: 204px;
+  pointer-events: none;
+  transition: left .45s ease, top .45s ease;
+}
+.milo-companion .milo {
+  width: 144px;
+  height: 144px;
+  margin: 4px auto 0;
+  background-size: 432px 288px;
+  mix-blend-mode: multiply;
+  filter: url(#milo-cutout);
+}
+.milo-companion .milo-bubble {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  padding: 12px;
+  border-width: 2px;
+  border-radius: 12px 12px 12px 3px;
+  pointer-events: auto;
+}
+.milo-companion .milo-bubble::after {
+  right: 90px;
+  bottom: -14px;
+}
+.milo-dialogue-next {
+  display: block;
+  margin: 9px 0 0 auto;
+  padding: 4px 8px;
+  border: 1px solid #8299b9;
+  background: #edf3fc;
+  color: #3157a4;
+  font-size: 12px;
+}
+.milo-companion.is-uneasy .milo-bubble {
+  background: #fff0d9;
+  border-color: #856452;
+}
+.milo-companion.is-uneasy .milo-bubble::after { border-top-color: #856452; }
+.milo-companion.is-threatening .milo-bubble {
+  background: #f4ddd5;
+  border-color: #783f3f;
+  color: #542e36;
+  box-shadow: 4px 4px 0 #3b202b99;
+}
+.milo-companion.is-threatening .milo-bubble::after { border-top-color: #783f3f; }
+.milo-suggested {
+  outline: 3px dashed #d7aa3b;
+  outline-offset: 4px;
+}
+.image-viewer .thought-box { width: min(500px, 55vw); }
+@media (min-width: 900px) {
+  #dialog-backdrop { padding-left: 240px; }
+  .image-viewer { left: 220px; max-width: calc(100vw - 260px); }
+  .image-viewer .archive-image { max-width: min(1100px, calc(100vw - 274px)); }
+  .image-viewer.pdf-viewer .archive-image { max-width: none; }
+}
+@media (max-width: 899px) {
+  .milo-companion { width: 180px; }
+  .milo-companion .milo { width: 96px; height: 96px; background-size: 288px 192px; }
+  .milo-companion .milo-bubble { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .milo-companion { transition: none; }
+  .milo-companion .milo { animation: none; }
+}
+
 /* Active My Files button */
 body.horror-mode #task-files.active,
 body.horror-mode #task-files[aria-pressed="true"] {
