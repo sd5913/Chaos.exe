@@ -47,6 +47,53 @@ body {
   margin: 0;
   min-height: 100vh;
 }
+.booting { overflow: hidden; }
+.booting .desktop { display: none; }
+.entrance, .welcome-dialog {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; place-items: center; overflow-y: auto; padding: 24px;
+  background: radial-gradient(ellipse at 50% 35%, #dceaf1 0%, #aec9df 55%, #7796ba 100%);
+}
+.welcome-dialog { background: #24426888; backdrop-filter: blur(5px); }
+.cover { text-align: center; width: min(720px, 100%); padding: 28px 0; color: #234372; }
+.cover-kicker { font: 11px monospace; letter-spacing: .16em; color: #567598; }
+.cover h1 { margin: 24px 0 0; font-size: clamp(54px, 12vw, 112px); line-height: 1; letter-spacing: -.07em; }
+.cover h1 span { font-weight: 400; color: #6b84a1; }
+.cover-milo.milo { margin: 12px auto; filter: url(#milo-cutout); mix-blend-mode: multiply; }
+.cover-tagline { font-size: clamp(18px, 3vw, 26px); }
+.cover-whisper { font: 12px monospace; color: #617591; margin-bottom: 32px; }
+.cover small { display: block; margin-top: 30px; font: 10px monospace; letter-spacing: .16em; opacity: .65; }
+.entrance { padding: 0; background: #a9c9e8; }
+.image-cover {
+  position: relative;
+  width: min(100%, 150dvh);
+  padding: 0;
+  aspect-ratio: 3 / 2;
+  flex-shrink: 0;
+}
+.cover-art { display: block; width: 100%; height: auto; }
+.cover-start {
+  position: absolute;
+  left: 36.2%; top: 54.5%; width: 27.6%; height: 11.8%;
+  border: 0; padding: 0; background: transparent; cursor: pointer;
+  border-radius: 2px;
+}
+.cover-start:hover { background: #fff7df22; }
+.cover-start:focus-visible { outline: 3px solid #3157a4; outline-offset: 4px; }
+.cover-start:active { background: #3157a422; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+.welcome-card { text-align: center; background: #fff9e9; border: 2px solid #7187a8; box-shadow: 7px 7px 0 #31517c55; width: min(540px, 100%); padding: 24px 34px; }
+.welcome-card h2 { font-size: 23px; }
+.welcome-copy { font-size: 17px; line-height: 1.9; min-height: 110px; text-align: left; }
+.language-options { display: flex; justify-content: center; gap: 16px; margin: 26px 0 8px; }
+.welcome-progress { font: 11px monospace; color: #8390a7; margin-bottom: 16px; }
+.asset-transcript { flex-shrink: 0; background: #fff9e9; padding: 8px 12px; font-size: 12px; max-height: 140px; overflow-y: auto; white-space: pre-line; }
+.asset-transcript summary { cursor: pointer; font-weight: bold; }
+@media (max-height: 750px) { .welcome-card .cover-milo { width: 120px; height: 120px; background-size: 360px 240px; } }
 
 button {
   font: inherit;

@@ -291,6 +291,8 @@ imageActions.className = 'image-viewer-actions';
 imageActions.hidden = true;
 imageActions.innerHTML = '<button type="button" class="button secondary">保留文件</button><button type="button" class="button primary">准备删除</button>';
 imageViewer.append(imageActions);
+const assetTranscript=document.createElement('details');assetTranscript.className='asset-transcript';assetTranscript.hidden=true;
+assetTranscript.innerHTML='<summary>中文释文</summary><p></p>';imageActions.before(assetTranscript);
 let previewFile = null, imageRequest = 0, previewWasViewed = false;
 const [imageKeep, imageDelete] = imageActions.querySelectorAll('button');
 imageKeep.onclick = () => {
@@ -333,6 +335,9 @@ async function openImage(image, file = null, archive = null) {
   try { await loaded.decode(); } catch { failed = true; }
   if(request !== imageRequest) return;
   previewFile = file;
+  assetTranscript.hidden = gameLanguage !== 'zh' || !(file || chineseAssetText[image.src]);
+  assetTranscript.open = false;
+  assetTranscript.querySelector('p').textContent = file?.[2] || chineseAssetText[image.src] || '';
   previewWasViewed = !failed;
   imageActions.hidden = !file;
   imageViewer.classList.toggle('file-image-viewer', !!file);
@@ -472,10 +477,10 @@ nextButton.onclick=()=>{returnMiloHome(); if(day===6){showEnding(true);return}da
   if(window.playBGMForDay){
     window.playBGMForDay(day + 1);
   }released=0;finished=false;currentApp='My Files';complete.hidden=true;folder.hidden=true;$('#desktop-intro').classList.remove('hidden-intro');updateIntro();render();talk(searchHint());showStory();};
-function openFolder(app='My Files'){returnMiloHome(); currentApp=app;folder.hidden=false;$('#desktop-intro').classList.add('hidden-intro');render();talk(searchHint());}
+function openFolder(app='My Files'){returnMiloHome(); currentApp=app;folder.hidden=false;$('#desktop-intro').classList.add('hidden-intro');render();talk(searchHint());if(window.onTutorialFolder) window.onTutorialFolder(app);}
 $('#intro-open').onclick=()=>openFolder('My Files');$('#open-folder').ondblclick=()=>openFolder('My Files');$('#open-folder').onclick=()=>toast('双击打开 My Files');
 document.querySelectorAll('.decorative-icon').forEach(icon=>{const name=icon.querySelectorAll('span')[1].textContent.trim();icon.setAttribute('role','button');icon.tabIndex=0;icon.setAttribute('aria-label','打开 '+name);icon.ondblclick=()=>openFolder(name);icon.onclick=()=>{if(matchMedia('(max-width:760px)').matches)openFolder(name);else toast('双击打开 '+name)};icon.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openFolder(name)}};});
 $('#task-files').onclick=()=>openFolder(currentApp);$('#start-button').onclick=()=>openFolder('My Files');
 $('#open-goal').onclick=()=>toast(`今日目标：释放 ${storyDays[day].goal} 单位，目前 ${released} 单位。`);
 $('#minimize-folder').onclick=$('#close-folder').onclick=()=>{folder.hidden=true;$('#desktop-intro').classList.remove('hidden-intro');suggestNextFile()};
-updateIntro();render();showStory();
+updateIntro();render();
