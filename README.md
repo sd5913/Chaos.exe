@@ -9,3 +9,8 @@ demo：https://sd5913.github.io/Chaos.exe/
 Open My Files, inspect a file and choose to keep it or prepare it for deletion. Drag a prepared file onto Milo or use the feed button. Free 30 MB to complete Day 1; restart to play again. All files and storage values are fictional; the prototype does not read or delete real files.
 
 Milo uses a supplied reference image. Confirm permission and attribution before using the image in the final project.
+
+### Story-logic revision (19 November)
+Ordinary deletions do not erase memory. On Day 7, only deleting `USER_PREFERENCES.cfg` executes the final memory erasure. Read the file before deciding. Keep it and meet the space goal to stop cleanup with memory intact. Archives require inspecting their available image entries. Day 6 allows preserving the export log.
+
+Run the focused logic checks with `node story-logic.test.cjs`. The test executes the game's actual feed handler with UI stubs; it does not replace a full browser playthrough.

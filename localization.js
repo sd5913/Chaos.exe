@@ -112,10 +112,10 @@ const chineseFiles={
  'export_log.txt':'导出日志\n数据包已创建，记录已合并，存档已准备，导出完成。\n发送者：ERIS VALE。投递状态：完成。',
  'recycle_bin_index.db':'回收站索引：列出了已处理文件的名称，原预览不可用。',
  'desktop_layout.bak':'桌面布局备份\nMILO：右下角。\n文件夹：WORK、PERSONAL、ARCHIVE。\n壁纸：holiday_wallpaper_old.png。',
- 'memory_cleanup.tmp':'临时系统文件：正在检查关联数据……关联记忆不可用。',
+ 'memory_cleanup.tmp':'临时系统文件：记忆索引已连接，尚未执行抹除。',
  'welcome_message.txt':'欢迎消息\n你好！我应该怎么称呼你？',
  'MILO_CHANGELOG.md':'MILO 更新日志\nv1.0：文件分类与重复检测。\nv1.4：自定义提醒。\nv2.1：自动清理规则。\nv2.6：抑制关联提醒。\n变更请求者：用户。',
- 'USER_PREFERENCES.cfg':'用户偏好\n自动删除证据：已启用。\n抑制提醒：已启用。\n抹除关联记忆：已启用。\n配置人：ERIS VALE。'
+ 'USER_PREFERENCES.cfg':'用户偏好 / 记忆索引控制文件\n\n删除普通文件不会改变你的记忆。\n删除本文件将确认并执行关联记忆抹除，无法撤销。\n保留本文件则记忆保持完整。\n\n配置人：ERIS VALE。'
 };
 const chineseAssetText={
  'assets/day1/day1_shopping_list.png':'周末购物清单\n牛奶、鸡蛋、面包、苹果、洗衣液。\n记得带购物袋。',
@@ -131,8 +131,8 @@ function setGameLanguage(language){
  Object.entries(englishChats).forEach(([name,lines])=>(fileChats[name]||[]).forEach((zh,index)=>registerTranslation(zh,lines[index]||lines[0])));
  const enDays=['A fresh start. Every file deserves a look.','There are old records to sort through. Look before deciding.','Some records may be connected. Take your time.','Messages and work records are waiting.','Some payments need your attention. Keep cleaning.','I will follow your preferences. Leave nothing behind.','A few files remain. Perhaps we should look at your old settings.'];
  dayStories.forEach((story,index)=>registerTranslation(story.text,enDays[index]));
- dayThoughts.forEach((pair,index)=>{registerTranslation(pair[0],["These files seem ordinary... why can't I remember them?","What does this record have to do with me?","Something is wrong. What am I missing?","What else is hidden behind this record?","The more I read, the more uneasy I feel.","If I delete this, will I still remember?","Maybe the answer was in these files all along."][index]);registerTranslation(pair[1],enDays[index]);});
- Object.entries(fileThoughts).forEach(([name,pair])=>registerTranslation(pair[0],({ 'travel_archive.zip':"These journeys... why can't I remember them?",'card_NY_084.png':"This card isn't mine. Why is it here?",'cybercrime_news_report.pdf':"Leaked data. Stolen cards. Is this story about me?"})[name]||"How am I connected to this? What have I forgotten?"));
+ dayThoughts.forEach((pair,index)=>{registerTranslation(pair[0],["First tidy the desktop, then look at that unfinished application.","What does this record have to do with me?","Something is wrong. What am I missing?","What else is hidden behind this record?","The more I read, the more uneasy I feel.","Deleting records frees space, but does not change what happened.","Maybe the answer was in these files all along."][index]);registerTranslation(pair[1],enDays[index]);});
+ Object.entries(fileThoughts).forEach(([name,pair])=>registerTranslation(pair[0],({ 'travel_archive.zip':"Who were these journeys booked for? They were in my work archive.",'card_NY_084.png':"This card isn't mine. Why is it here?",'cybercrime_news_report.pdf':"Leaked data. Stolen cards. Is this story about me?"})[name]||"How am I connected to this? What am I avoiding?"));
  Object.entries({'购物清单':'shopping list','工作评价':'work review','旧金山酒店订单':'San Francisco hotel booking','芝加哥至波士顿机票':'Chicago–Boston ticket','纽约至旧金山机票':'New York–San Francisco ticket','波士顿出租车发票':'Boston taxi receipt','旧金山出租车发票':'San Francisco taxi receipt','房租逾期通知':'overdue rent notice','银行卡':'bank card','辞退通知书':'dismissal notice','公司规章制度（签署版）':'signed company rules','身份与账户登记表':'identity and account register','客户请求':'client request','转账记录':'transfer record','新闻报道 / 数据泄露与信用卡盗刷调查':'News / Data leak and card fraud inquiry','打开 My Files':'Open My Files','今日剧情':'Daily story'}).forEach(([a,b])=>registerTranslation(a,b));
  if(language==='zh'){
   greetings.forEach((line,i)=>chineseUI[line]=dayStories[i].text);
@@ -142,9 +142,9 @@ function setGameLanguage(language){
   storyDays[0].files.find(f=>f[0]==='travel_archive.zip')[2]=storyDays[0].files.find(f=>f[0]==='travel_archive.zip')[2].replace('TRAVEL ARCHIVE','行程档案');
   const clues=['这张卡……不是我的。','检测到关联编号：NY-084。','这是我写的。','多个文件出现了相同编号。为什么要收集这些资料？','这份请求是发给我的？','这笔报酬关联到已处理的档案。我收到了这笔钱？','它们全都放在同一个数据包里。','发送者是我……那些资料是我发出去的？','你让我清理证据、压下提醒、抹掉记忆。'];
   Object.keys(clueText).forEach((name,i)=>clueText[name]=clues[i]);
-  const zhScenes=[['停止清理','Milo：“明白，清理已停止。还有什么需要我帮忙的吗？”\n设置归于沉默。Milo 在角落等着。'],['记忆恢复','Eris Vale 曾任 Lumen Data 的数据技术员，因泄露公司资料被调查和辞退，之后很难找到正常工作。'],['那些工作','最初只是整理公开资料。后来逐渐变成盗用银行卡预订行程、搜集他人隐私并出售人物档案。Eris 整理数据包并把它们发了出去。'],['Milo 的指令','Eris 创造 Milo 来整理文件，后来又启用删除证据、压下提醒、抹除记忆的规则。Milo 一直照做。'],['为什么是这台电脑？','Eris 想停止接单，重新开始，却无法面对过去。这次清理，是逃离往事的最后一次尝试。'],['留下记录','Eris 打开空白文档：\n“我叫 Eris Vale。有些事情，我必须记住。”\nMilo 安静地留在桌面。']];
+  const zhScenes=[['停止清理','Milo：“明白，清理已停止。还有什么需要我帮忙的吗？”\n设置归于沉默。Milo 在角落等着。'],['面对真相','Eris Vale 曾任 Lumen Data 的数据技术员，因泄露公司资料被调查和辞退，之后很难找到正常工作。'],['那些工作','最初只是整理公开资料。后来逐渐变成盗用银行卡预订行程、搜集他人隐私并出售人物档案。Eris 整理数据包并把它们发了出去。'],['Milo 的指令','Eris 创造 Milo 来整理文件，后来又启用删除证据、压下提醒、抹除记忆的规则。Milo 一直照做。'],['为什么是这台电脑？','Eris 想停止接单，重新开始，却无法面对过去。这次清理，是逃离往事的最后一次尝试。'],['留下记录','Eris 打开空白文档：\n“我叫 Eris Vale。有些事情，我必须记住。”\nMilo 安静地留在桌面。']];
   truthScenes.forEach((scene,i)=>{scene[1]=zhScenes[i][0];scene[2]=zhScenes[i][1];});
-  erasureScenes[0][1]='清理完成';erasureScenes[0][2]='Milo：“清理完成。一切恢复正常。你可以重新开始了。”\n姓名、照片和记录逐渐消失。';erasureScenes[1][1]='重新开始';erasureScenes[1][2]='桌面回到最初的模样。Milo 出现在角落。\nMilo：“你是谁？”\nEris 无法回答。\n未找到用户档案。';
+  erasureScenes[0][1]='清理完成';erasureScenes[0][2]='Milo：“清理完成。一切恢复正常。你可以重新开始了。”\n记忆索引已删除。剩余文件仍在，但 Eris 已无法认出它们与自己人生的联系。';erasureScenes[1][1]='重新开始';erasureScenes[1][2]='桌面回到最初的模样。Milo 出现在角落。\nMilo：“你好！我该怎么称呼你？”\nEris 无法回答。\n未找到用户档案。';
  }
  localizationObserver=new MutationObserver(localizeInterface);localizeInterface();
 }
@@ -154,3 +154,6 @@ Object.assign(chineseUI,{"YOUR SPACE":"你的空间","YOUR DOCUMENTS / 01":"你�
 registerTranslation('这份记录与你过去的活动和记忆有关。你想怎么处理它？','This record connects to your past and your memories. What will you do with it?');
 registerTranslation('剧情提示','Story');
 registerTranslation('图片加载失败，请关闭后重试。','Image failed to load. Close and try again.');
+
+registerTranslation('请先查看压缩包中的每张图片。','Inspect every image in this archive first.');
+Object.assign(chineseUI,{'MEMORY RETAINED':'记忆保留','Hello! What should I call you?':'你好！我该怎么称呼你？'});

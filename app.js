@@ -63,25 +63,25 @@ const clueText = {
   'USER_PREFERENCES.cfg':'MILO: This is what you configured me to do.\nERIS: These records… they’re mine.'
 };
 const fileThoughts = {
-  'travel_archive.zip':['这些行程记录……我为什么记不起来？','旧的工作资料而已。你可以先看看，再决定。'],
+  'travel_archive.zip':['这些行程是为谁订的？我以前把它们归在工作档案里。','旧的工作资料而已。你可以先看看，再决定。'],
   'card_NY_084.png':['这张卡不属于我，为什么会在这里？','可能是误存的图片。留着也占空间。'],
   'profile_021.jpg':['照片里的人是谁？这个编号好像见过。','只是一个旧文件，不必想太多。'],
-  'data_merge_script.py':['这是我写的代码？我用它整理过什么？','你以前常处理数据，这很正常。'],
-  'client_requests.pdf':['这些要求……我真的答应过吗？','不舒服的东西，可以交给我处理。'],
-  'payment_01_20081124.png':['这些钱从哪里来？我到底做了什么？','别看太久。清理目标还没有完成。'],
+  'data_merge_script.py':['这是我写的代码。我用它把不同来源的资料合在一起。','你以前常处理数据，这很正常。'],
+  'client_requests.pdf':['当时我知道这些要求越界了，却还是答应了。','不舒服的东西，可以交给我处理。'],
+  'payment_01_20081124.png':['这些钱和那些资料对上了。我一直不愿面对这件事。','别看太久。清理目标还没有完成。'],
   'payment_02_20081127.png':['十二份资料，一千四百四十美元……这些是人的信息吗？','不过是一笔旧转账。别再算了。'],
-  'payment_03_20081202.png':['日期越来越近，钱也是汇给我的。','看够了。现在可以删了吧？'],
+  'payment_03_20081202.png':['日期和收款人都对上了。我没法再说这与我无关。','看够了。现在可以删了吧？'],
   'cybercrime_news_report.pdf':['泄露的资料、被盗刷的卡……报道说的，会是我吗？','新闻里连名字都没写。别自己对号入座。'],
-  'export_log.txt':['发送人是我。那些资料真的被我送出去了？','我一直按照你的指示工作。'],
-  'USER_PREFERENCES.cfg':['这些设置是我自己留下的吗？','你让我清理证据，也让我帮你忘记。']
+  'export_log.txt':['发送人是我。那些资料是我亲手送出去的。','我一直按照你的指示工作。'],
+  'USER_PREFERENCES.cfg':['只要删除这份记忆索引，Milo 就会执行我设下的最终抹除。','你让我清理证据，也让我帮你忘记。']
 };
 const dayThoughts = [
-  ['这些文件看起来很普通……但我为什么一点印象也没有？','慢慢看，整理完就会轻松一些。'],
+  ['先把桌面整理好，再看看那份没写完的申请。','慢慢看，整理完就会轻松一些。'],
   ['这份旧记录和我有什么关系？','如果用不到，就让我帮你清理吧。'],
   ['好像有哪里不对，我是不是漏掉了什么？','不用担心，我会照顾好这些文件。'],
   ['这份记录背后还有什么我不知道的事？','有些东西留下来只会让你分心。'],
   ['我越看越觉得不安。','请继续清理，我们快完成了。'],
-  ['如果把它删掉，我还会记得吗？','你说过，有些事不需要记住。'],
+  ['删除记录能腾出空间，但发生过的事不会因此改变。','你说过，有些事不需要记住。'],
   ['也许答案一直就在这些文件里。','你真的想知道吗？']
 ];
 const thoughtBox=document.createElement('aside');
@@ -112,7 +112,7 @@ const fileChats = {
   'MILO_README.txt':['是我的说明书！原来你还留着。','以后遇到不知道怎么整理的东西，就叫我吧。'],
   'job_application_v3.docx':['这是一份还没有填完的求职申请。','离职原因那一栏……先空着也可以，对吧？'],
   'travel_archive.zip':['哇，你去过好多地方！机票、酒店，还有出租车票。','你一定是经常出差的职员吧？替别人安排事情，跑来跑去的。','不过都是过期订单了，没必要一张张核对。清理掉，轻松一点。'],
-  'dismissal_notice.pdf':['你做了不得了的、有意思的事情呢。公司连权限都收回了。','……别这么看着我。我只是觉得，这种不好的回忆留着有什么用？','交给我删掉吧。你不是想重新开始吗？'],
+  'dismissal_notice.pdf':['是以前公司的通知。那段日子一定不太好过。','你可以先核对内容，不用急着决定。','交给我删掉吧。你不是想重新开始吗？'],
   'company_rules_signed.pdf':['公司的内部规章，最后还有你的签名。','保密、权限、资料使用……这些字读起来真累。','规矩是以前的事了，留着也不能改变什么。删掉吧。'],
   'rent_overdue.png':['这是一张房租逾期通知，房东在等付款。','纸上的日期已经过去了。希望你现在能睡个好觉。'],
   'card_NY_084.png':['一张卡片照片。数字太多了，看得我眼花。','不是你的卡？那更没必要留着。快交给我吧。'],
@@ -356,15 +356,18 @@ async function openImage(image, file = null, archive = null) {
   if(file && !failed) recordFileView(file);
   if(!failed && archive) {
     nestedViewed.add(key(archive) + ':' + image.src);
+    if(archiveComplete(archive)){viewed.add(key(archive));render();updateIntro();}
     showFileChat(archive, imageViewer, imageViewer, image.label);
   }
   imageViewer.querySelector('.image-viewer-page').scrollTop = 0;
 }
+function archiveImages(file){return file[0]==='duplicate_screenshots.zip'?duplicateImages:file[0]==='travel_archive.zip'?travelImages:null}
+function archiveComplete(file){const images=archiveImages(file);return !images||Object.values(images).every(image=>nestedViewed.has(key(file)+':'+image.src))}
 function recordFileView(file) {
   const [thought] = fileThoughts[file[0]] || dayThoughts[day];
   thoughtBox.querySelector('p').textContent = `“${thought}”`;
   thoughtBox.hidden = false;
-  viewed.add(key(file));
+  if(!archiveImages(file)||archiveComplete(file)) viewed.add(key(file));
   if(file[3]) memories.add(key(file));
   render(); updateIntro();
   showFileChat(file, imageViewer.open ? imageViewer : dialog.querySelector('.dialog-window'), imageViewer.open ? imageViewer : document.body);
@@ -403,8 +406,8 @@ function openFile(file) {
   $('#dialog-title').textContent=file[0]; $('#dialog-type').textContent='FILE';
   $('#dialog-meta').textContent=`${file[1]} UNITS / FICTIONAL FILE`;
   let content=file[2];
-  if(clueText[file[0]]) content+='\n\n── STORY ──\n'+clueText[file[0]];
-  if(file[3]) { memories.add(key(file)); content+='\n\n✦ MEMORY FRAGMENT\n'+file[3]; }
+
+
   $('#dialog-text').textContent=content;
   if(day === 0 && file[0] === 'duplicate_screenshots.zip') showArchiveContents(content, duplicateImages, file);
   if(day === 0 && file[0] === 'travel_archive.zip') showArchiveContents(content, travelImages, file);
@@ -433,7 +436,13 @@ $('#keep-file').onclick=()=>{if(!selected)return;const f=selected;states[key(f)]
 $('#prepare-file').onclick=()=>{if(!selected)return;const f=selected;if(states[key(f)]==='ready'){closeDialog();feed(f);return}states[key(f)]='ready';closeDialog();render();talk('Ready. Drag the file to me, or use the feed button.');toast('拖给 Milo，或双击文件后点击“喂给 Milo”。')};
 function feed(file){
   if(finished||!file||states[key(file)]!=='ready')return;
+  if(archiveImages(file)&&!archiveComplete(file)){toast(gameLanguage==='en'?'Inspect every image in this archive first.':'请先查看压缩包中的每张图片。');return;}
+  if(day===6&&file[0]==='USER_PREFERENCES.cfg'){
+    const unread=storyDays[day].files.some(f=>!viewed.has(key(f)));
+    if(unread||released+file[1]<storyDays[day].goal){toast(gameLanguage==='en'?'Inspect all files and free at least 4 units before the final deletion.':'请先查看全部文件，并至少释放 4 单位，再决定最终删除。');return;}
+  }
   states[key(file)]='eaten';released+=file[1];render();talk('File removed. Storage status updated.','eat');
+  if(day===6&&file[0]==='USER_PREFERENCES.cfg'){finished=true;showCompletion();showEnding(false);return;}
   suggestNextFile(true);
   if(released>=storyDays[day].goal){const unread=storyDays[day].files.filter(f=>!viewed.has(key(f))).length;toast(unread?`目标已达成！请先查看剩余 ${unread} 个文件。`:'目标已达成，文件已全部查看。可以点击“完成当天”。');}
 }
@@ -444,34 +453,34 @@ function showCompletion(){
   returnMiloHome();
   document.querySelector('.complete-content .eyebrow').textContent=`DAY ${String(day+1).padStart(2,'0')} / COMPLETE`;
   $('#complete-title').textContent=day===6?'最后一份记录':'今天的清理已完成';
-  $('#complete-copy').textContent=day===6?'这份记录与你过去的活动和记忆有关。你想怎么处理它？':`已释放 ${released} 单位。你可以继续下一天。`;
+  $('#complete-copy').textContent=day===6?(gameLanguage==='en'?'The space target is met. Stop cleanup and keep your memory, or reopen USER_PREFERENCES.cfg to consider the final deletion.':'空间目标已完成。你可以停止清理、保留记忆；或重新打开 USER_PREFERENCES.cfg，决定是否执行最后的抹除。'):`已释放 ${released} 单位。你可以继续下一天。`;
   $('#complete-space').textContent=released+' U'; $('#complete-kept').textContent=memories.size;
   document.querySelector('.complete-stats div:last-child small').textContent='MEMORY FRAGMENTS';
-  document.querySelector('.ending-line').textContent=day===6?'Your choice will determine the ending.':'Memory fragments are optional and do not determine the ending.';
-  nextButton.textContent=day===6?'保留记录':'进入下一天 →';
+  document.querySelector('.ending-line').textContent=day===6?(gameLanguage==='en'?'Only deleting USER_PREFERENCES.cfg triggers memory erasure. Other files do not change memory.':'只有删除 USER_PREFERENCES.cfg 才会触发失忆，其他文件不改变记忆。'):'Memory fragments are optional and do not determine the ending.';
+  nextButton.textContent=day===6?(gameLanguage==='en'?'Stop cleanup · keep memory':'停止清理 · 保留记忆'):'进入下一天 →';
   let remove=$('#final-delete');if(remove)remove.remove();
-  if(day===6){remove=document.createElement('button');remove.id='final-delete';remove.className='button secondary';remove.textContent='删除记录';nextButton.before(remove);remove.onclick=()=>showEnding(false)}
+  if(day===6){remove=document.createElement('button');remove.id='final-delete';remove.className='button secondary';remove.textContent=gameLanguage==='en'?'Review final file':'查看关键文件';nextButton.before(remove);remove.onclick=()=>{finished=false;complete.hidden=true;openFile(storyDays[6].files.find(f=>f[0]==='USER_PREFERENCES.cfg'))}}
   complete.hidden=false;nextButton.focus();
 }
 const truthScenes = [
   ['THE TRUTH / 01','Cleanup stopped','Milo: “Understood. Cleanup stopped. Is there anything else I should do?”\n\nThe settings fall silent. Milo waits in the corner of the desktop.'],
-  ['THE TRUTH / 02','Memory restored','Eris Vale worked at Lumen Data as a data technician. After disclosing company information, Eris was investigated and dismissed. Regular work became difficult to find.'],
+  ['THE TRUTH / 02','Facing the truth','Eris Vale worked at Lumen Data as a data technician. After disclosing company information, Eris was investigated and dismissed. Regular work became difficult to find.'],
   ['THE TRUTH / 03','The work','At first, Eris searched public information and organised data. The requests grew darker: stolen-card travel bookings, private profiles and information sold to buyers. Eris prepared the packages and sent them.'],
   ['THE TRUTH / 04','Milo’s instructions','Eris made Milo to organise a cluttered desktop. Later, Eris enabled rules to delete evidence, suppress reminders and erase associated memories. Milo followed the instructions it was given.'],
   ['THE TRUTH / 05','Why this computer?','Eris wanted to stop taking the jobs and start again, but could not face the files. Eris opened the old computer to clear everything away. This cleanup was the final attempt to leave the past behind.'],
   ['THE TRUTH / 06','A record kept','Eris opens a blank document.\n\n“My name is Eris Vale.\nThere are things I need to remember.”\n\nMilo remains quietly on the desktop.']
 ];
 const erasureScenes = [
-  ['COMPLETE ERASURE / 01','Cleanup complete','Milo: “Cleanup complete. Everything is back to normal. You can start fresh.”\n\nThe names, photographs and records fade from the screen.'],
-  ['COMPLETE ERASURE / 02','A fresh start','The desktop returns to the way it looked at the beginning. Milo appears in the corner.\n\nMilo: “Who are you?”\n\nEris cannot answer.\n\nNO USER PROFILE FOUND']
+  ['COMPLETE ERASURE / 01','Cleanup complete','Milo: “Cleanup complete. Everything is back to normal. You can start fresh.”\n\nThe memory index is gone. Eris can still see the remaining files, but can no longer recognise their connection to their own life.'],
+  ['COMPLETE ERASURE / 02','A fresh start','The desktop returns to the way it looked at the beginning. Milo appears in the corner.\n\nMilo: “Hello! What should I call you?”\n\nEris cannot answer.\n\nNO USER PROFILE FOUND']
 ];
 function showEnding(keep){
   const remove=$('#final-delete');if(remove)remove.remove();
   const scenes=keep?truthScenes:erasureScenes; let scene=0;
   document.querySelector('.complete-stats').hidden=true;
-  function showScene(){const [label,title,body]=scenes[scene];document.querySelector('.complete-content .eyebrow').textContent=label;$('#complete-title').textContent=title;$('#complete-copy').textContent=body;$('#complete-copy').style.whiteSpace='pre-line';document.querySelector('.ending-line').textContent=scene===scenes.length-1?(keep?'MEMORY RESTORED':'CLEANUP COMPLETE'):'';nextButton.textContent=scene===scenes.length-1?'重新开始':'继续 →';}
+  function showScene(){const [label,title,body]=scenes[scene];document.querySelector('.complete-content .eyebrow').textContent=label;$('#complete-title').textContent=title;$('#complete-copy').textContent=body;$('#complete-copy').style.whiteSpace='pre-line';document.querySelector('.ending-line').textContent=scene===scenes.length-1?(keep?'MEMORY RETAINED':'CLEANUP COMPLETE'):'';nextButton.textContent=scene===scenes.length-1?'重新开始':'继续 →';}
   showScene();nextButton.onclick=()=>{if(scene<scenes.length-1){scene++;showScene()}else location.reload()};
-  talk(keep?'Cleanup stopped. I’ll be right here.':'Cleanup complete. Who are you?');
+  talk(keep?'Cleanup stopped. I’ll be right here.':'Hello! What should I call you?');
 }
 nextButton.onclick=()=>{returnMiloHome(); if(day===6){showEnding(true);return}day++;// 根据当前游戏日切换背景音乐
   if(window.playBGMForDay){
