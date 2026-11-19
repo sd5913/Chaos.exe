@@ -88,6 +88,8 @@ body {
 }
 .welcome-card { text-align: center; background: #fff9e9; border: 2px solid #7187a8; box-shadow: 7px 7px 0 #31517c55; width: min(540px, 100%); padding: 24px 34px; }
 .welcome-card h2 { font-size: 23px; }
+.github-account { margin-top: 16px; }
+.github-account [role="status"]:empty { margin: 0; }
 .welcome-copy { font-size: 17px; line-height: 1.9; min-height: 110px; text-align: left; }
 .language-options { display: flex; justify-content: center; gap: 16px; margin: 26px 0 8px; }
 .welcome-progress { font: 11px monospace; color: #8390a7; margin-bottom: 16px; }

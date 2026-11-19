@@ -57,3 +57,42 @@ The main development areas include:
 - Memory fragments and ending logic
 All files and computer activities are fictional and simulated. The game does not access, modify, or delete the player's real files.
 
+## Optional GitHub sign-in
+
+The language screen offers GitHub sign-in when the auth backend is configured. Players can choose either language and begin the game as guests. Signing in shows the GitHub username and does not sync game progress. The static game can still be served on GitHub Pages.
+
+The [course OAuth/D1 reference](https://github.com/sd5913/github-oauth-d1-template) informed the state, PKCE, profile lookup, and binding setup. This version uses Cloudflare Pages Functions alongside the existing static game. GitHub receives an explicit empty scope for public identity. D1 stores expiring login attempts and sessions. The session cookie contains an opaque random value, D1 stores its hash, and logout revokes the session. The GitHub access token is used only for the server-side profile request.
+
+### Local verification
+
+Run `node --test` with Node.js 24 to exercise the flow with a mocked GitHub provider and in-memory SQLite using the D1 migration. For a local Pages runtime, use the following configuration in the ignored `wrangler.jsonc` file. The UUID is a local placeholder.
+
+```json
+{
+  "name": "chaos-oauth-local",
+  "compatibility_date": "2026-11-19",
+  "pages_build_output_dir": "./dist",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "chaos-auth-local",
+      "database_id": "00000000-0000-0000-0000-000000000000"
+    }
+  ]
+}
+```
+
+```sh
+sh scripts/build-pages.sh
+npx wrangler d1 migrations apply chaos-auth-local --local
+npx wrangler pages dev dist --port 8788
+```
+
+Open `http://localhost:8788`. To manually verify real sign-in locally, use a maintainer-managed GitHub OAuth App with callback `http://localhost:8788/api/auth/github/callback` and copy `.dev.vars.example` to `.dev.vars` before entering its credentials. Use the same hostname throughout.
+
+### Hosting setup for a maintainer
+
+1. Use a Cloudflare Pages project with the repository root as its working directory, `sh scripts/build-pages.sh` as its build command, and `dist` as its output directory. Pages Functions are read from `functions/` outside the static output. [Pages Functions routing](https://developers.cloudflare.com/pages/functions/routing/)
+2. Create or select a dedicated D1 database, apply `migrations/0001_auth.sql` to that database, and bind it to the Pages environment as `DB`. Use the database name when applying the migration and confirm the environment before applying it remotely. [D1 migrations](https://developers.cloudflare.com/d1/reference/migrations/) · [Pages bindings](https://developers.cloudflare.com/pages/functions/bindings/)
+3. Register a GitHub OAuth App for the intended HTTPS origin, such as `https://game.example`. Register the exact callback `https://game.example/api/auth/github/callback`. Set `APP_URL` to the origin, set `GITHUB_CLIENT_ID`, and store `GITHUB_CLIENT_SECRET` as an encrypted Pages runtime secret. Keep credentials in the runtime environment. Use separate apps and bindings if enabling sign-in on a preview origin. Keep request query strings out of callback logs. [GitHub OAuth web application flow](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps)
+4. Verify a guest can start normally, a successful sign-in returns to the language screen with the GitHub username, and logout clears the account. Also check canceling consent and opening the callback directly.
