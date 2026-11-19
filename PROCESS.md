@@ -245,3 +245,17 @@ Starting from Day 5, the interface gradually shifts to a muted, less saturated c
 Two background music tracks were implemented: Normal BGM for Days 1–4 and Horror BGM for Days 5–7, with a crossfade transition between them. Additional UI click sound effects provide audio feedback for player interactions.
 
 CSS theme switching and JavaScript audio controls synchronize the visual and audio progression with the game's narrative.
+## 19 November — story logic revision
+
+Based on review of teammate branch 8accaaa. The author clarified that ordinary file deletion must NOT alter Eris's memory. An experimental memory journal and per-file amnesia were discarded and are not included here.
+
+- Only feeding the final-day USER_PREFERENCES.cfg (the memory index/control file) executes memory erasure. The file explains this consequence in both languages.
+- Final deletion requires inspecting all files and releasing at least four units first. Completion no longer offers a second, disconnected delete button: the player reopens the actual file to decide, or stops cleanup with memory intact.
+- Earlier deletion changes storage and evidence availability, not memory. Early explicit amnesia lines were adjusted; the preservation ending acknowledges the truth rather than restoring already-erased memories.
+- Day 6 goal reduced from 25 to 19: the other files total 19, so keeping export_log.txt is now possible. Day 7 likewise permits keeping the memory index.
+- Archive contents must actually be inspected before the archive counts as reviewed or can be fed. Removed narrative commentary embedded inside fictional source documents.
+
+AI assistance: Codex inspected code and the browser flow, proposed consequences, discarded the memory-journal proposal after author feedback, implemented this narrower rule and tested the actual feed function in isolation. Automated checks verify ordinary versus final deletion, review/space guards and attainable preservation paths. Browser check covered the bilingual entrance and first-day file/deletion flow before the final author correction; full manual seven-day replay remains to be done. No new independent user trial is claimed.
+
+### Earlier visual tension
+Author requested first faults on Day 3 and mild darkening from Day 4. Added a faint scanline overlay with a very occasional one-pixel drift on Day 3; Day 4 has a cooler, darker desktop and desaturated windows. Existing Day 5–7 horror palette remains the next stage. The overlay cannot intercept clicks, avoids rapid flashing, and stops animating with reduced-motion enabled. Visual state is applied independently of audio permissions; unlocking audio retains the current day. `node atmosphere.test.cjs` checks all seven day stages and restart state. Visual appearance still needs author feedback in play.

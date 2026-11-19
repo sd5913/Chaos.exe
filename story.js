@@ -33,7 +33,7 @@ const storyDays = [
  ['payment_01_20081124.png',3,'INCOMING TRANSFER / 24 NOV 2008\nORBIT_7 → ERIS VALE\n$720.00 / Batch 01 / 6 profiles × $120','A payment notification appears. Eris says: “It was only data.”'],
  ['payment_02_20081127.png',3,'INCOMING TRANSFER / 27 NOV 2008\nORBIT_7 → ERIS VALE\n$1,440.00 / Batch 02 / 12 profiles × $120'],
  ['payment_03_20081202.png',3,'INCOMING TRANSFER / 02 DEC 2008\nORBIT_7 → ERIS VALE\n$960.00 / Batch 03 / 8 profiles × $120'] ]},
- {goal:25,files:[
+ {goal:19,files:[
  ['archive_copy_FINAL.zip',5,'ARCHIVE COPY\nAn identical archive already exists. Duplicate detected.'],
  ['temp_render_004.mov',4,'A black screen. A progress bar is stuck at 12%.\nRENDER INCOMPLETE.'],
  ['system_crash_2025.log',3,'SYSTEM LOG\nApplication stopped responding.\nApplication closed unexpectedly.\nSystem restarted successfully.'],
@@ -43,8 +43,8 @@ const storyDays = [
  {goal:10,files:[
  ['recycle_bin_index.db',2,'RECYCLE BIN INDEX\nProcessed file names are listed here. Original previews are unavailable.'],
  ['desktop_layout.bak',2,'DESKTOP LAYOUT BACKUP\nMILO: bottom right\nFolders: WORK, PERSONAL, ARCHIVE\nWallpaper: holiday_wallpaper_old.png'],
- ['memory_cleanup.tmp',3,'TEMPORARY SYSTEM FILE\nChecking associated data...\nASSOCIATED MEMORY UNAVAILABLE'],
+ ['memory_cleanup.tmp',3,'TEMPORARY SYSTEM FILE\nChecking associated data...\nMEMORY INDEX CONNECTED / NO ERASURE EXECUTED'],
  ['welcome_message.txt',1,'WELCOME MESSAGE\n\nHello!\nWhat should I call you?'],
  ['MILO_CHANGELOG.md',4,'MILO CHANGELOG\nv1.0 — File sorting and duplicate detection\nv1.4 — Custom reminder settings\nv2.1 — Automatic cleanup rules\nv2.6 — Associated reminder suppression\n\nChanges requested by: USER'],
- ['USER_PREFERENCES.cfg',6,'USER PREFERENCES\n\nAUTO_DELETE_EVIDENCE        ENABLED\nSUPPRESS_REMINDERS           ENABLED\nERASE_ASSOCIATED_MEMORIES    ENABLED\n\nCONFIGURED BY: ERIS VALE'] ]}
+ ['USER_PREFERENCES.cfg',6,'USER PREFERENCES\n\nMEMORY INDEX / FINAL CONTROL FILE\n\nDeleting ordinary files does not change your memory.\nDeleting THIS file confirms and executes ERASE_ASSOCIATED_MEMORIES.\nThis action cannot be undone.\nKeeping THIS file leaves your memory intact.\n\nCONFIGURED BY: ERIS VALE'] ]}
 ];
