@@ -29,7 +29,7 @@ The player is free to make their own decisions, but the cleanup requirements gra
 
 The protagonist begins the game with no clear memory of their past.
 
-As the player explores the desktop, they discover personal information belonging to unfamiliar people, records of suspicious requests, and evidence of data transactions.
+As the player explores the desktop, they discover personal information that is not from themselves.
 
 These files gradually reveal that the protagonist was involved in the illegal collection and sale of personal information. Although the protagonist eventually wanted to stop, they attempted to erase the evidence and their associated memories instead of confronting their past.
 
