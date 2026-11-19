@@ -37,9 +37,18 @@ function fadeTo(audio, targetVolume, duration = 1800) {
   fadeTimers.set(audio, timer);
 }
 
+let atmosphereDay = 1;
+function applyAtmosphere(day) {
+  atmosphereDay = Math.max(1, Math.min(7, day));
+  document.body.dataset.storyDay = String(atmosphereDay);
+  document.body.classList.toggle('signal-fault', atmosphereDay >= 3);
+  document.body.classList.toggle('early-dark', atmosphereDay === 4);
+  document.body.classList.toggle('horror-mode', atmosphereDay >= 5);
+}
+applyAtmosphere(1);
 function playBGMForDay(day) {
-    // Day 5 开始切换为阴暗 UI
-document.body.classList.toggle('horror-mode', day >= 5);
+  // Visual progression works even when audio is blocked or muted.
+  applyAtmosphere(day);
 
   if (!audioUnlocked) return;
 
@@ -70,7 +79,7 @@ document.body.classList.toggle('horror-mode', day >= 5);
 function unlockAudio() {
   if (audioUnlocked) return;
   audioUnlocked = true;
-  playBGMForDay(1);
+  playBGMForDay(atmosphereDay);
 }
 
 document.addEventListener('pointerdown', unlockAudio, { once: true });

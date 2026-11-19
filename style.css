@@ -2015,3 +2015,42 @@ body.horror-mode #task-files[aria-pressed="true"] {
   color: #344C68 !important;
   background-color: #C4D0D6 !important;
 }
+
+
+/* Story pacing: subtle faults on Day 3; first darkening on Day 4.
+   Overlay never captures input. No rapid flashes or whole-window shake. */
+body.signal-fault .desktop::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 45;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, #1b2f4520 3px 4px);
+  opacity: .13;
+  animation: signal-drift 13s linear infinite;
+}
+body[data-story-day="3"] .desktop {
+  background-color: #a6bfd2;
+}
+body[data-story-day="3"] .desktop-label {
+  text-shadow: .5px 0 #7486a9;
+}
+body.early-dark .desktop {
+  background: radial-gradient(ellipse at 60% 30%, #9aaaba 0%, #8494a7 65%, #728196 100%);
+}
+body.early-dark .window { background-color: #e3e5e0; }
+body.early-dark .window-title, body.early-dark .address-bar { background-color: #b5c0cc; }
+body.early-dark .folder-side, body.early-dark .taskbar { background-color: #c6cbd0; }
+body.early-dark .pet-speech { background-color: #e1e3dc; }
+body.early-dark .button.primary { background-color: #607b9e; color: #fff; }
+body.early-dark .pet-halo { background-color: #c6c7ad; }
+body.early-dark .desktop::after { opacity: .24; }
+body.horror-mode .desktop::after { opacity: .32; }
+@keyframes signal-drift {
+  0%, 72%, 76%, 100% { transform: translateY(0); }
+  73%, 75% { transform: translateY(1px); }
+  74% { transform: translateY(-1px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.signal-fault .desktop::after { animation: none; }
+}
