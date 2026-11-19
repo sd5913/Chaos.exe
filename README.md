@@ -17,7 +17,7 @@ The game is built around a simple interaction loop:
 - Decide whether to keep or delete each file.
 - Manage the computer's storage capacity.
 - Complete the daily cleanup target and progress to the next day.
-- 
+
 Some files are ordinary digital clutter, while others contain important narrative information. Reading certain files can reveal memory fragments that help the player understand the protagonist's identity.
 
 The player is free to make their own decisions, but the cleanup requirements gradually become more restrictive.
